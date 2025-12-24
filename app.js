@@ -1,56 +1,7 @@
 /*****************************************************************
- * DATA (mock)
+ * DATA (da JSON)
  *****************************************************************/
-const recipesAll = [
-  {
-    id: "gnocchi_sugo",
-    name: "Gnocchi di Patate\nal sugo",
-    category: "Pranzo",
-    kcal: 342,
-    price: 3.80,
-    image: "https://images.unsplash.com/photo-1600628422019-6c2b43b6909b?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: "porridge_banana",
-    name: "Porridge\nbanana & latte",
-    category: "Colazione",
-    kcal: 482,
-    price: 0.64,
-    image: "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: "pancake_banana",
-    name: "Pancake\na banana",
-    category: "Colazione",
-    kcal: 430,
-    price: 0.55,
-    image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: "pasta_zucchine",
-    name: "Pasta\nzucchine & parmigiano",
-    category: "Cena",
-    kcal: 610,
-    price: 1.10,
-    image: "https://images.unsplash.com/photo-1523986371872-9d3ba2e2f5aa?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: "frittata_verdure",
-    name: "Frittata\ncon verdure",
-    category: "Cena",
-    kcal: 350,
-    price: 0.80,
-    image: "https://images.unsplash.com/photo-1617196034796-73c9c7a6a6d6?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: "protein_banana",
-    name: "Protein Drink\n+ banana",
-    category: "Spuntino",
-    kcal: 317,
-    price: 2.43,
-    image: "https://images.unsplash.com/photo-1528731708534-816fe59f90cb?auto=format&fit=crop&w=1200&q=80"
-  }
-];
+let recipesAll = []; // popolato da fetch
 
 /*****************************************************************
  * STATE + DOM
@@ -88,7 +39,7 @@ const history = [];
 let deck = [];
 let imgCount = 0;
 
-// gesture variables (from your snippet)
+// gesture variables
 let current = null;
 let likeText = null;
 let startX = 0, startY = 0, moveX = 0, moveY = 0;
@@ -138,128 +89,56 @@ function recipeById(id){
   return recipesAll.find(r => r.id === id) || null;
 }
 
-/*****************************************************************
- * RECIPE MODAL (nuovo)
- *****************************************************************/
-function getMockRecipeDetails(recipe){
-  // Invento contenuto semplice ma "credibile" (poi lo sostituiamo con dati reali)
-  const base = {
-    time: "10–20 min",
-    servings: "1 porzione",
-  };
+function normalizeRecipe(r){
+  // supporto eventuali vecchi campi:
+  // - "category": "Cena" oppure "category": ["Pranzo","Cena"]
+  // - nuovo: "categories": [...]
+  const out = { ...r };
 
-  const presets = {
-    gnocchi_sugo: {
-      ingredients: [
-        "Gnocchi di patate 250 g",
-        "Passata di pomodoro 150 g",
-        "Olio EVO 5 g",
-        "Parmigiano 10 g",
-        "Sale q.b."
-      ],
-      steps: [
-        "Metti a bollire l’acqua e sala.",
-        "Scalda la passata con olio e un pizzico di sale per 5–7 min.",
-        "Cuoci gli gnocchi finché salgono a galla, scola e unisci al sugo.",
-        "Impiatta e completa con parmigiano."
-      ]
-    },
-    porridge_banana: {
-      ingredients: [
-        "Avena 80 g",
-        "Latte 250 ml",
-        "Banana 120 g",
-        "Acqua (se serve) q.b."
-      ],
-      steps: [
-        "Scalda latte e avena mescolando.",
-        "Cuoci 5–7 min fino a crema.",
-        "Schiaccia la banana e mescola dentro.",
-        "Servi caldo (o freddo dopo 10 min)."
-      ]
-    },
-    pancake_banana: {
-      ingredients: [
-        "Avena 60 g (tritata fine/“farina”)",
-        "Uovo 1 (circa 60 g)",
-        "Banana 120 g",
-        "Latte 50 ml"
-      ],
-      steps: [
-        "Schiaccia banana, aggiungi uovo e latte.",
-        "Unisci avena e mescola fino a pastella.",
-        "Padella antiaderente: cuoci 2–3 min per lato.",
-        "Servi subito."
-      ]
-    },
-    pasta_zucchine: {
-      ingredients: [
-        "Pasta secca 90 g",
-        "Zucchine 250 g",
-        "Olio EVO 8 g",
-        "Parmigiano 10 g",
-        "Sale q.b."
-      ],
-      steps: [
-        "Cuoci la pasta in acqua salata.",
-        "Salta le zucchine a dadini con olio per 8–10 min.",
-        "Scola la pasta e manteca con zucchine + un goccio d’acqua di cottura.",
-        "Completa con parmigiano."
-      ]
-    },
-    frittata_verdure: {
-      ingredients: [
-        "Uova 2",
-        "Zucchine o melanzane 200 g",
-        "Olio EVO 5 g",
-        "Sale q.b."
-      ],
-      steps: [
-        "Cuoci le verdure in padella con olio.",
-        "Sbatti le uova con sale.",
-        "Versa sulle verdure e cuoci coperto 5–6 min.",
-        "Gira e termina 2–3 min."
-      ]
-    },
-    protein_banana: {
-      ingredients: [
-        "Protein Drink 350 g",
-        "Banana 120 g"
-      ],
-      steps: [
-        "Agita la bottiglia.",
-        "Bevi freddo e abbina una banana.",
-        "Fine: spuntino super facile."
-      ]
-    }
-  };
+  if(Array.isArray(out.categories)){
+    // ok
+  } else if(Array.isArray(out.category)){
+    out.categories = out.category.slice();
+  } else if(typeof out.category === "string"){
+    out.categories = [out.category];
+  } else {
+    out.categories = [];
+  }
 
-  const fallback = {
-    ingredients: [
-      "Ingrediente A (dalla tua lista) q.b.",
-      "Ingrediente B q.b.",
-      "Olio EVO (opzionale) 5 g"
-    ],
-    steps: [
-      "Prepara gli ingredienti.",
-      "Cuoci/assembla in modo semplice.",
-      "Impiatta e servi."
-    ]
-  };
+  // manteniamo compatibilità interna con il resto dell’app
+  // (ma useremo sempre out.categories)
+  if(!out.details) out.details = {};
 
-  const det = presets[recipe.id] || fallback;
-  return { ...base, ...det };
+  // ripulisci: non è necessario, ma aiuta coerenza
+  delete out.category;
+
+  return out;
 }
 
+function getDisplayCategory(recipe){
+  // Manteniamo 1 chip come prima (stessa estetica).
+  // Se stai filtrando per una categoria specifica e la ricetta la contiene, mostriamo quella.
+  if(activeCategory !== "Tutte" && recipe.categories?.includes(activeCategory)) return activeCategory;
+  return (recipe.categories && recipe.categories[0]) ? recipe.categories[0] : "—";
+}
+
+/*****************************************************************
+ * RECIPE MODAL
+ *****************************************************************/
 function openRecipeModal(recipe){
   if(!recipe) return;
-  const det = getMockRecipeDetails(recipe);
+
+  const det = recipe.details || {};
+  const time = det.time || "—";
+  const servings = det.servings || "—";
+  const ingredients = Array.isArray(det.ingredients) ? det.ingredients : [];
+  const steps = Array.isArray(det.steps) ? det.steps : [];
 
   recipeModalTitle.textContent = recipe.name.replace(/\n/g, " ");
   recipeModalBody.innerHTML = `
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
       <div style="padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);font-weight:900;font-size:12px;">
-        ${escapeHtml(recipe.category)}
+        ${escapeHtml(getDisplayCategory(recipe))}
       </div>
       <div style="padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);font-weight:900;font-size:12px;">
         ${formatKcal(recipe.kcal)}
@@ -268,25 +147,37 @@ function openRecipeModal(recipe){
         ${formatEuro(recipe.price)}
       </div>
       <div style="padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);font-weight:900;font-size:12px;">
-        ${escapeHtml(det.time)} • ${escapeHtml(det.servings)}
+        ${escapeHtml(time)} • ${escapeHtml(servings)}
       </div>
     </div>
 
     <div style="font-weight:900;margin:10px 0 6px 0;">Ingredienti</div>
-    <ul style="margin:0 0 12px 18px;color:rgba(255,255,255,.85);font-weight:800;line-height:1.45;">
-      ${det.ingredients.map(i => `<li>${escapeHtml(i)}</li>`).join("")}
-    </ul>
+    ${
+      ingredients.length
+        ? `<ul style="margin:0 0 12px 18px;color:rgba(255,255,255,.85);font-weight:800;line-height:1.45;">
+             ${ingredients.map(i => `<li>${escapeHtml(i)}</li>`).join("")}
+           </ul>`
+        : `<div style="color:rgba(255,255,255,.75);font-weight:800;line-height:1.4;margin-bottom:12px;">
+             (Ingredienti non presenti nel JSON)
+           </div>`
+    }
 
     <div style="font-weight:900;margin:10px 0 6px 0;">Preparazione</div>
-    <ol style="margin:0 0 4px 18px;color:rgba(255,255,255,.85);font-weight:800;line-height:1.45;">
-      ${det.steps.map(s => `<li>${escapeHtml(s)}</li>`).join("")}
-    </ol>
+    ${
+      steps.length
+        ? `<ol style="margin:0 0 4px 18px;color:rgba(255,255,255,.85);font-weight:800;line-height:1.45;">
+             ${steps.map(s => `<li>${escapeHtml(s)}</li>`).join("")}
+           </ol>`
+        : `<div style="color:rgba(255,255,255,.75);font-weight:800;line-height:1.4;">
+             (Passaggi non presenti nel JSON)
+           </div>`
+    }
   `;
   recipeModal.classList.add("show");
 }
 
 /*****************************************************************
- * Likes list (modifica #3: click apre ricetta)
+ * Likes list
  *****************************************************************/
 function renderLikesList(){
   if(likedRecipes.size === 0){
@@ -310,7 +201,7 @@ function renderLikesList(){
       <div class="meta">
         <div class="name">${escapeHtml(r.name).replace(/\n/g," ")}</div>
         <div class="sub">
-          <span>${r.category}</span>
+          <span>${escapeHtml(getDisplayCategory(r))}</span>
           <span>•</span>
           <span>${formatKcal(r.kcal)}</span>
           <span>•</span>
@@ -334,7 +225,7 @@ function buildCategoryPicker(){
   categories.forEach(cat=>{
     const count = (cat === "Tutte")
       ? recipesAll.length
-      : recipesAll.filter(r=>r.category === cat).length;
+      : recipesAll.filter(r => (r.categories || []).includes(cat)).length;
 
     const btn = document.createElement("button");
     btn.type = "button";
@@ -355,12 +246,11 @@ function buildCategoryPicker(){
 
 function filteredRecipes(){
   if(activeCategory === "Tutte") return recipesAll.slice();
-  return recipesAll.filter(r=>r.category === activeCategory);
+  return recipesAll.filter(r => (r.categories || []).includes(activeCategory));
 }
 
 /*****************************************************************
  * CARD FACTORY
- * (modifica #2: freccia cliccabile apre ricetta)
  *****************************************************************/
 function createCardElement(recipe){
   const card = document.createElement('div');
@@ -368,11 +258,13 @@ function createCardElement(recipe){
   card.dataset.id = recipe.id;
   card.style.backgroundImage = `url('${recipe.image}')`;
 
+  const chipLabel = getDisplayCategory(recipe);
+
   card.innerHTML = `
     <div class="is-like">LIKE</div>
     <div class="bottom">
       <div class="tagline">
-        <span class="chip">${recipe.category}</span>
+        <span class="chip">${escapeHtml(chipLabel)}</span>
       </div>
       <div class="title">${escapeHtml(recipe.name).replace(/\n/g,"<br>")}</div>
       <div class="subtitle">
@@ -388,7 +280,6 @@ function createCardElement(recipe){
     </div>
   `;
 
-  // Click sulla freccia: apre popup ricetta, e NON innesca swipe
   const hint = card.querySelector(".hintUp");
   if(hint){
     hint.addEventListener("pointerdown", (e)=> e.stopPropagation());
@@ -402,7 +293,7 @@ function createCardElement(recipe){
 }
 
 /*****************************************************************
- * CARD STACK (gesture logic)
+ * CARD STACK
  *****************************************************************/
 function appendCardBottom(recipe) {
   const firstCard = frame.children[0];
@@ -544,10 +435,16 @@ function resetDeck(){
     deck = [{
       id:"empty",
       name:"Nessuna ricetta\nin questa categoria",
-      category: activeCategory,
+      categories: [activeCategory],
       kcal: 0,
       price: 0,
-      image:"https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=1200&q=80"
+      image:"https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=1200&q=80",
+      details: {
+        time: "—",
+        servings: "—",
+        ingredients: [],
+        steps: []
+      }
     }];
   }
 
@@ -562,6 +459,31 @@ function resetDeck(){
 
   if(current) initCard(current);
   history.length = 0;
+}
+
+/*****************************************************************
+ * LOAD JSON + BOOT
+ *****************************************************************/
+async function loadRecipes(){
+  const res = await fetch("./data/recipes.json", { cache: "no-store" });
+  if(!res.ok) throw new Error("Impossibile caricare data/recipes.json");
+  const raw = await res.json();
+  if(!Array.isArray(raw)) throw new Error("recipes.json deve contenere un array di ricette");
+  return raw.map(normalizeRecipe);
+}
+
+async function boot(){
+  try{
+    recipesAll = await loadRecipes();
+  }catch(err){
+    console.error(err);
+    // fallback minimale se json mancante/rotto (non cambia UI, evita crash)
+    recipesAll = [];
+  }
+
+  buildCategoryPicker();
+  resetDeck();
+  sumLiked();
 }
 
 /*****************************************************************
@@ -590,8 +512,6 @@ document.querySelectorAll("[data-close]").forEach(btn=>{
 });
 
 /*****************************************************************
- * BOOT
+ * START
  *****************************************************************/
-buildCategoryPicker();
-resetDeck();
-sumLiked();
+boot();
