@@ -4,6 +4,37 @@
 let recipesAll = []; // popolato da fetch
 
 /*****************************************************************
+ * LOCALSTORAGE
+ *****************************************************************/
+const LS_KEY = "eater_state_v1";
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return { likedIds: [], swipeLog: [] };
+    const parsed = JSON.parse(raw);
+    return {
+      likedIds: Array.isArray(parsed.likedIds) ? parsed.likedIds : [],
+      swipeLog: Array.isArray(parsed.swipeLog) ? parsed.swipeLog : []
+    };
+  }catch{
+    return { likedIds: [], swipeLog: [] };
+  }
+}
+
+function saveState(){
+  try{
+    const state = {
+      likedIds: Array.from(likedRecipes.keys()),
+      swipeLog
+    };
+    localStorage.setItem(LS_KEY, JSON.stringify(state));
+  }catch{
+    // ignore
+  }
+}
+
+/*****************************************************************
  * STATE + DOM
  *****************************************************************/
 const frame = document.querySelector(".frame");
@@ -31,6 +62,9 @@ let activeCategory = "Tutte";
 
 // likedRecipes: Map(id -> recipe)
 const likedRecipes = new Map();
+
+// swipe log (persistito): {id, action, ts}
+let swipeLog = [];
 
 // history stack: { recipe, action, appendedRecipe }
 const history = [];
@@ -90,9 +124,6 @@ function recipeById(id){
 }
 
 function normalizeRecipe(r){
-  // supporto eventuali vecchi campi:
-  // - "category": "Cena" oppure "category": ["Pranzo","Cena"]
-  // - nuovo: "categories": [...]
   const out = { ...r };
 
   if(Array.isArray(out.categories)){
@@ -105,19 +136,13 @@ function normalizeRecipe(r){
     out.categories = [];
   }
 
-  // manteniamo compatibilità interna con il resto dell’app
-  // (ma useremo sempre out.categories)
   if(!out.details) out.details = {};
-
-  // ripulisci: non è necessario, ma aiuta coerenza
   delete out.category;
 
   return out;
 }
 
 function getDisplayCategory(recipe){
-  // Manteniamo 1 chip come prima (stessa estetica).
-  // Se stai filtrando per una categoria specifica e la ricetta la contiene, mostriamo quella.
   if(activeCategory !== "Tutte" && recipe.categories?.includes(activeCategory)) return activeCategory;
   return (recipe.categories && recipe.categories[0]) ? recipe.categories[0] : "—";
 }
@@ -177,8 +202,16 @@ function openRecipeModal(recipe){
 }
 
 /*****************************************************************
- * Likes list
+ * Likes list (con delete)
  *****************************************************************/
+function removeLikeById(id){
+  if(!likedRecipes.has(id)) return;
+  likedRecipes.delete(id);
+  sumLiked();
+  saveState();
+  renderLikesList();
+}
+
 function renderLikesList(){
   if(likedRecipes.size === 0){
     likesList.innerHTML = `
@@ -208,12 +241,25 @@ function renderLikesList(){
           <span>${formatEuro(r.price)}</span>
         </div>
       </div>
+      <button class="removeLikeBtn" type="button" aria-label="Rimuovi like" title="Rimuovi like">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z"/>
+        </svg>
+      </button>
     `;
 
+    // click riga => apre ricetta
     row.addEventListener("click", () => {
       const id = row.dataset.id;
       const recipe = recipeById(id);
       openRecipeModal(recipe);
+    });
+
+    // click X => rimuove like (senza aprire ricetta)
+    const removeBtn = row.querySelector(".removeLikeBtn");
+    removeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      removeLikeById(r.id);
     });
 
     likesList.appendChild(row);
@@ -361,6 +407,13 @@ function getRecipeByCard(card){
   return deck.find(r=>r.id === id) || recipesAll.find(r=>r.id === id);
 }
 
+function logSwipe(id, action){
+  swipeLog.push({ id, action, ts: Date.now() });
+  // tieni la log "leggera"
+  if(swipeLog.length > 600) swipeLog = swipeLog.slice(-600);
+  saveState();
+}
+
 function complete(action) {
   if(!current) return;
 
@@ -375,7 +428,10 @@ function complete(action) {
   if(action === "like"){
     likedRecipes.set(recipe.id, recipe);
     sumLiked();
+    saveState();
   }
+
+  logSwipe(recipe.id, action);
 
   const next = current.previousElementSibling;
   if (next) initCard(next);
@@ -472,18 +528,31 @@ async function loadRecipes(){
   return raw.map(normalizeRecipe);
 }
 
+function restoreLikesFromState(state){
+  likedRecipes.clear();
+  const idSet = new Set(state.likedIds || []);
+  for(const id of idSet){
+    const r = recipeById(id);
+    if(r) likedRecipes.set(id, r);
+  }
+  swipeLog = Array.isArray(state.swipeLog) ? state.swipeLog : [];
+  sumLiked();
+}
+
 async function boot(){
   try{
     recipesAll = await loadRecipes();
   }catch(err){
     console.error(err);
-    // fallback minimale se json mancante/rotto (non cambia UI, evita crash)
     recipesAll = [];
   }
 
+  // Restore persisted likes after recipes loaded
+  const state = loadState();
+  restoreLikesFromState(state);
+
   buildCategoryPicker();
   resetDeck();
-  sumLiked();
 }
 
 /*****************************************************************
