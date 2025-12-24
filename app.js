@@ -1,5 +1,5 @@
 /*****************************************************************
- * DATA (mock) – poi lo stacchiamo dal codice e lo carichiamo da JSON/DB
+ * DATA (mock)
  *****************************************************************/
 const recipesAll = [
   {
@@ -63,6 +63,10 @@ const likesModal = document.getElementById("likesModal");
 const catsModal  = document.getElementById("catsModal");
 const likesList  = document.getElementById("likesList");
 const catGrid    = document.getElementById("catGrid");
+
+const recipeModal = document.getElementById("recipeModal");
+const recipeModalTitle = document.getElementById("recipeModalTitle");
+const recipeModalBody  = document.getElementById("recipeModalBody");
 
 const navLikes = document.getElementById("navLikes");
 const navCats  = document.getElementById("navCats");
@@ -130,6 +134,160 @@ function escapeHtml(str){
   }[m]));
 }
 
+function recipeById(id){
+  return recipesAll.find(r => r.id === id) || null;
+}
+
+/*****************************************************************
+ * RECIPE MODAL (nuovo)
+ *****************************************************************/
+function getMockRecipeDetails(recipe){
+  // Invento contenuto semplice ma "credibile" (poi lo sostituiamo con dati reali)
+  const base = {
+    time: "10–20 min",
+    servings: "1 porzione",
+  };
+
+  const presets = {
+    gnocchi_sugo: {
+      ingredients: [
+        "Gnocchi di patate 250 g",
+        "Passata di pomodoro 150 g",
+        "Olio EVO 5 g",
+        "Parmigiano 10 g",
+        "Sale q.b."
+      ],
+      steps: [
+        "Metti a bollire l’acqua e sala.",
+        "Scalda la passata con olio e un pizzico di sale per 5–7 min.",
+        "Cuoci gli gnocchi finché salgono a galla, scola e unisci al sugo.",
+        "Impiatta e completa con parmigiano."
+      ]
+    },
+    porridge_banana: {
+      ingredients: [
+        "Avena 80 g",
+        "Latte 250 ml",
+        "Banana 120 g",
+        "Acqua (se serve) q.b."
+      ],
+      steps: [
+        "Scalda latte e avena mescolando.",
+        "Cuoci 5–7 min fino a crema.",
+        "Schiaccia la banana e mescola dentro.",
+        "Servi caldo (o freddo dopo 10 min)."
+      ]
+    },
+    pancake_banana: {
+      ingredients: [
+        "Avena 60 g (tritata fine/“farina”)",
+        "Uovo 1 (circa 60 g)",
+        "Banana 120 g",
+        "Latte 50 ml"
+      ],
+      steps: [
+        "Schiaccia banana, aggiungi uovo e latte.",
+        "Unisci avena e mescola fino a pastella.",
+        "Padella antiaderente: cuoci 2–3 min per lato.",
+        "Servi subito."
+      ]
+    },
+    pasta_zucchine: {
+      ingredients: [
+        "Pasta secca 90 g",
+        "Zucchine 250 g",
+        "Olio EVO 8 g",
+        "Parmigiano 10 g",
+        "Sale q.b."
+      ],
+      steps: [
+        "Cuoci la pasta in acqua salata.",
+        "Salta le zucchine a dadini con olio per 8–10 min.",
+        "Scola la pasta e manteca con zucchine + un goccio d’acqua di cottura.",
+        "Completa con parmigiano."
+      ]
+    },
+    frittata_verdure: {
+      ingredients: [
+        "Uova 2",
+        "Zucchine o melanzane 200 g",
+        "Olio EVO 5 g",
+        "Sale q.b."
+      ],
+      steps: [
+        "Cuoci le verdure in padella con olio.",
+        "Sbatti le uova con sale.",
+        "Versa sulle verdure e cuoci coperto 5–6 min.",
+        "Gira e termina 2–3 min."
+      ]
+    },
+    protein_banana: {
+      ingredients: [
+        "Protein Drink 350 g",
+        "Banana 120 g"
+      ],
+      steps: [
+        "Agita la bottiglia.",
+        "Bevi freddo e abbina una banana.",
+        "Fine: spuntino super facile."
+      ]
+    }
+  };
+
+  const fallback = {
+    ingredients: [
+      "Ingrediente A (dalla tua lista) q.b.",
+      "Ingrediente B q.b.",
+      "Olio EVO (opzionale) 5 g"
+    ],
+    steps: [
+      "Prepara gli ingredienti.",
+      "Cuoci/assembla in modo semplice.",
+      "Impiatta e servi."
+    ]
+  };
+
+  const det = presets[recipe.id] || fallback;
+  return { ...base, ...det };
+}
+
+function openRecipeModal(recipe){
+  if(!recipe) return;
+  const det = getMockRecipeDetails(recipe);
+
+  recipeModalTitle.textContent = recipe.name.replace(/\n/g, " ");
+  recipeModalBody.innerHTML = `
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+      <div style="padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);font-weight:900;font-size:12px;">
+        ${escapeHtml(recipe.category)}
+      </div>
+      <div style="padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);font-weight:900;font-size:12px;">
+        ${formatKcal(recipe.kcal)}
+      </div>
+      <div style="padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);font-weight:900;font-size:12px;">
+        ${formatEuro(recipe.price)}
+      </div>
+      <div style="padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);font-weight:900;font-size:12px;">
+        ${escapeHtml(det.time)} • ${escapeHtml(det.servings)}
+      </div>
+    </div>
+
+    <div style="font-weight:900;margin:10px 0 6px 0;">Ingredienti</div>
+    <ul style="margin:0 0 12px 18px;color:rgba(255,255,255,.85);font-weight:800;line-height:1.45;">
+      ${det.ingredients.map(i => `<li>${escapeHtml(i)}</li>`).join("")}
+    </ul>
+
+    <div style="font-weight:900;margin:10px 0 6px 0;">Preparazione</div>
+    <ol style="margin:0 0 4px 18px;color:rgba(255,255,255,.85);font-weight:800;line-height:1.45;">
+      ${det.steps.map(s => `<li>${escapeHtml(s)}</li>`).join("")}
+    </ol>
+  `;
+  recipeModal.classList.add("show");
+}
+
+/*****************************************************************
+ * Likes list (modifica #3: click apre ricetta)
+ *****************************************************************/
 function renderLikesList(){
   if(likedRecipes.size === 0){
     likesList.innerHTML = `
@@ -140,10 +298,13 @@ function renderLikesList(){
     `;
     return;
   }
+
   likesList.innerHTML = "";
   for(const r of likedRecipes.values()){
     const row = document.createElement("div");
     row.className = "likeItem";
+    row.dataset.id = r.id;
+
     row.innerHTML = `
       <div class="thumb" style="background-image:url('${r.image}')"></div>
       <div class="meta">
@@ -157,6 +318,13 @@ function renderLikesList(){
         </div>
       </div>
     `;
+
+    row.addEventListener("click", () => {
+      const id = row.dataset.id;
+      const recipe = recipeById(id);
+      openRecipeModal(recipe);
+    });
+
     likesList.appendChild(row);
   }
 }
@@ -192,6 +360,7 @@ function filteredRecipes(){
 
 /*****************************************************************
  * CARD FACTORY
+ * (modifica #2: freccia cliccabile apre ricetta)
  *****************************************************************/
 function createCardElement(recipe){
   const card = document.createElement('div');
@@ -199,33 +368,41 @@ function createCardElement(recipe){
   card.dataset.id = recipe.id;
   card.style.backgroundImage = `url('${recipe.image}')`;
 
-  // Nota: rimossa la ripetizione kcal/prezzo in alto nella card (richiesta #1)
   card.innerHTML = `
     <div class="is-like">LIKE</div>
     <div class="bottom">
       <div class="tagline">
         <span class="chip">${recipe.category}</span>
       </div>
-      <div class="title">${escapeHtml(recipe.name).replace(/\\n/g,"<br>")}</div>
+      <div class="title">${escapeHtml(recipe.name).replace(/\n/g,"<br>")}</div>
       <div class="subtitle">
         <span>${formatKcal(recipe.kcal)}</span>
         <span class="sep">•</span>
         <span>${formatEuro(recipe.price)}</span>
       </div>
-      <div class="hintUp" aria-hidden="true">
+      <div class="hintUp" aria-label="Apri ricetta" title="Apri ricetta">
         <svg viewBox="0 0 24 24">
           <path d="M7.41 15.59 12 11l4.59 4.59L18 14.17l-6-6-6 6z"/>
         </svg>
       </div>
     </div>
   `;
+
+  // Click sulla freccia: apre popup ricetta, e NON innesca swipe
+  const hint = card.querySelector(".hintUp");
+  if(hint){
+    hint.addEventListener("pointerdown", (e)=> e.stopPropagation());
+    hint.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      openRecipeModal(recipe);
+    });
+  }
+
   return card;
 }
 
 /*****************************************************************
- * CARD STACK (gesture logic follows your snippet)
- * appendCardBottom: inserisce la card in basso allo stack (come prima)
- * appendCardTop: inserisce la card in cima allo stack (per Undo)
+ * CARD STACK (gesture logic)
  *****************************************************************/
 function appendCardBottom(recipe) {
   const firstCard = frame.children[0];
@@ -237,7 +414,7 @@ function appendCardBottom(recipe) {
 
 function appendCardTop(recipe){
   const newCard = createCardElement(recipe);
-  frame.appendChild(newCard); // last child = top
+  frame.appendChild(newCard);
   return newCard;
 }
 
@@ -296,7 +473,6 @@ function getRecipeByCard(card){
 function complete(action) {
   if(!current) return;
 
-  // fly out
   const signX = (moveX === 0 ? (action === "like" ? 1 : -1) : Math.abs(moveX)/moveX);
   const flyX = signX * innerWidth * 1.3;
   const flyY = (moveX === 0 ? 0 : (moveY / moveX) * flyX);
@@ -305,27 +481,22 @@ function complete(action) {
   const prevCard = current;
   const recipe = getRecipeByCard(prevCard);
 
-  // Like action updates sums (normal)
   if(action === "like"){
     likedRecipes.set(recipe.id, recipe);
     sumLiked();
   }
 
-  // Move stack
   const next = current.previousElementSibling;
   if (next) initCard(next);
 
   current = next;
   likeText = current ? current.children[0] : null;
 
-  // Append new card at bottom (flow deck)
   const appendedRecipe = deck[imgCount % deck.length];
   appendCardBottom(appendedRecipe);
 
-  // Store history INCLUDING appendedRecipe so Undo can remove it
   history.push({ recipe, action, appendedRecipe });
 
-  // Remove old card after animation
   setTimeout(() => {
     if(prevCard && prevCard.parentNode === frame){
       frame.removeChild(prevCard);
@@ -334,42 +505,31 @@ function complete(action) {
 }
 
 /*****************************************************************
- * UNDO (richiesta #2)
- * - Riporta indietro la card precedente (undo dello swipe)
- * - NON cambia i contatori in alto (non tocca likedRecipes né sumLiked)
+ * UNDO (non cambia contatori)
  *****************************************************************/
 function undo(){
   if(history.length === 0) return;
 
   const last = history.pop();
 
-  // 1) Rimuovi la card che era stata aggiunta in basso durante quello swipe
-  // (di solito è la prima nello stack, perché appendCardBottom inserisce come first child)
-  // Cerchiamo la card con id = appendedRecipe.id e la rimuoviamo (se presente).
   const appendedId = last.appendedRecipe?.id;
   if(appendedId){
     const appendedCard = frame.querySelector(`.card[data-id="${appendedId}"]`);
-    // IMPORTANTE: non rimuovere se è l'unica o se per qualche motivo è diventata current
     if(appendedCard && appendedCard !== current){
       frame.removeChild(appendedCard);
       imgCount = Math.max(0, imgCount - 1);
     }
   }
 
-  // 2) Rimetti la card swipata come top card
   const restored = appendCardTop(last.recipe);
 
-  // 3) Imposta come current e reset trasformazioni
   current = restored;
   likeText = current.children[0];
   current.style.transition = '';
   current.style.transform = 'translate3d(0,0,0) rotate(0deg)';
   likeText.style.opacity = 0;
 
-  // 4) Riattiva gesture
   initCard(current);
-
-  // NOTA: contatori invariati (richiesta). Quindi NON facciamo sumLiked() e NON modifichiamo likedRecipes.
 }
 
 /*****************************************************************
@@ -401,8 +561,6 @@ function resetDeck(){
   startX = startY = moveX = moveY = 0;
 
   if(current) initCard(current);
-
-  // Reset history when changing category (makes sense)
   history.length = 0;
 }
 
@@ -425,7 +583,7 @@ navCats.addEventListener("click", ()=> openModal("cats"));
 document.querySelectorAll("[data-close]").forEach(btn=>{
   btn.addEventListener("click", (e)=> closeModalById(e.currentTarget.dataset.close));
 });
-[likesModal, catsModal].forEach(overlay=>{
+[likesModal, catsModal, recipeModal].forEach(overlay=>{
   overlay.addEventListener("click", (e)=>{
     if(e.target === overlay) overlay.classList.remove("show");
   });
