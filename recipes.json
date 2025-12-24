@@ -1,0 +1,22 @@
+[
+  {
+    "id": "Gnocchi_al_pomodoro",
+    "name": "Gnocchi al pomodoro",
+    "category": "Cena",
+    "kcal": 465,
+    "price": 0.90,
+    "image": "assets/images/recipes/gnocchi_sugo.png",
+    "details": {
+      "time": "10–15 min",
+      "servings": "1 porzione",
+      "ingredients": [
+        "Gnocchi 250 g",
+        "Passata 150 g",
+        "Olio EVO 10 g"
+      ],
+      "steps": [
+        " Bolli gnocchi, condisci"
+      ]
+    }
+  }
+]
