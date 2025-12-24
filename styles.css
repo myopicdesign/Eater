@@ -14,30 +14,34 @@ body{
   margin:0;
   font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   background: radial-gradient(1200px 900px at 50% -20%, #1b2340 0%, var(--bg) 55%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
   overflow:hidden;
   color:#fff;
+
+  /* FULLSCREEN (modifica #1) */
+  display:block;
 }
 
 /* PHONE SHELL */
 .phone{
-  width:min(420px, 94vw);
-  height:min(860px, 92vh);
- rgba(255,255,255,.02));
-  padding:14px;
-  
+  /* FULLSCREEN (modifica #1) */
+  width:100vw;
+  height:100vh;
+  padding:0;
   position:relative;
+  border-radius:0;
 }
 
 .screen{
+  /* FULLSCREEN (modifica #1) */
   width:100%;
   height:100%;
-  border-radius:28px;
+  border-radius:0;
+
   background: linear-gradient(180deg, rgba(10,12,18,.92), rgba(10,12,18,.98));
   position:relative;
   overflow:hidden;
+
+  /* mantengo padding interno per respiro UI */
   padding: 14px 14px 12px 14px;
 }
 
@@ -132,7 +136,7 @@ body{
   pointer-events:none;
 }
 
-/* Like/Nope overlay (from your snippet adapted) */
+/* Like/Nope overlay */
 .card .is-like{
   width:100%;
   height:100%;
@@ -226,7 +230,11 @@ body{
   background: rgba(0,0,0,.35);
   display:flex; align-items:center; justify-content:center;
   box-shadow: 0 8px 22px rgba(0,0,0,.35);
-  pointer-events:none;
+
+  /* MODIFICA #2: cliccabile */
+  pointer-events:auto;
+  cursor:pointer;
+  z-index: 3;
 }
 .hintUp svg{width:18px;height:18px; fill: rgba(255,255,255,.85)}
 
@@ -274,7 +282,7 @@ body{
   justify-content:space-around;
   z-index: 6;
   user-select:none;
-  border: none; /* <-- rimosso */
+  border: none;
 }
 
 .navBtn{
@@ -365,6 +373,9 @@ body{
   border: 1px solid rgba(255,255,255,.08);
   margin-bottom:10px;
   align-items:center;
+
+  /* MODIFICA #3: cliccabile */
+  cursor:pointer;
 }
 .likeItem .thumb{
   width:54px;height:54px;border-radius:14px;
