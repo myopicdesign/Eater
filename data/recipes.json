@@ -1,0 +1,69 @@
+[
+  {
+    "id": "gnocchi_al_pomodoro",
+    "name": "Gnocchi al pomodoro",
+    "categories": ["Pranzo", "Cena"],
+    "kcal": 465,
+    "price": 0.90,
+    "image": "assets/images/recipes/gnocchi_sugo.png",
+    "details": {
+      "time": "10–15 min",
+      "servings": "1 porzione",
+      "ingredients": [
+        "Gnocchi 250 g",
+        "Passata 150 g",
+        "Olio EVO 10 g"
+      ],
+      "steps": [
+        "Porta a bollore l’acqua e sala",
+        "Cuoci gli gnocchi finché salgono a galla",
+        "Scola e condisci con la passata e l’olio"
+      ]
+    }
+  },
+  {
+    "id": "rosti_di_patate",
+    "name": "Rosti di patate",
+    "categories": ["Cena"],
+    "kcal": 315,
+    "price": 0.45,
+    "image": "assets/images/recipes/rosti_di_patate.png",
+    "details": {
+      "time": "10–15 min",
+      "servings": "1 porzione",
+      "ingredients": [
+        "Patate 300 g",
+        "Olio EVO 10 g"
+      ],
+      "steps": [
+        "Grattugia le patate",
+        "Scalda l’olio in padella",
+        "Compatta le patate e cuoci fino a doratura"
+      ]
+    }
+  },
+  {
+    "id": "pasta_zucchine_parmigiano",
+    "name": "Pasta zucchine e parmigiano",
+    "categories": ["Pranzo", "Cena"],
+    "kcal": 920,
+    "price": 1.30,
+    "image": "assets/images/recipes/mezze_penne_zucchine.png",
+    "details": {
+      "time": "10–15 min",
+      "servings": "1 porzione",
+      "ingredients": [
+        "Pasta 200 g",
+        "Zucchine 200 g",
+        "Parmigiano 20 g",
+        "Olio EVO 10 g"
+      ],
+      "steps": [
+        "Taglia le zucchine a cubetti",
+        "Rosola le zucchine in padella con l’olio",
+        "Cuoci la pasta in acqua salata",
+        "Manteca la pasta con zucchine e parmigiano"
+      ]
+    }
+  }
+]
