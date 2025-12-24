@@ -8,25 +8,28 @@
 }
 
 *{box-sizing:border-box}
-html,body{height:100%}
+html,body{height:100%; background: var(--bg);}
 
 body{
   margin:0;
   font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  background: radial-gradient(1200px 900px at 50% -20%, #1b2340 0%, var(--bg) 55%);
   overflow:hidden;
   color:#fff;
   display:block;
+
+  /* mantieni il gradient (come prima) */
+  background: radial-gradient(1200px 900px at 50% -20%, #1b2340 0%, var(--bg) 55%);
+  background-color: var(--bg);
 }
 
 /* PHONE SHELL */
 .phone{
-  width:100vw;
-  height:100vh;
-  height:100dvh; /* iOS Safari fix */
-  padding:0;
-  position:relative;
-  border-radius:0;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: var(--bg);
 }
 
 .screen{
@@ -34,12 +37,18 @@ body{
   height:100%;
   border-radius:0;
 
-  background: linear-gradient(180deg, rgba(10,12,18,.92), rgba(10,12,18,.98));
   position:relative;
   overflow:hidden;
 
-  /* Safe-area bottom per iPhone (notch / home bar) */
-  padding: 14px 14px calc(12px + env(safe-area-inset-bottom)) 14px;
+  /* Safe-area top + bottom per iPhone (notch / home bar) */
+  padding:
+    calc(14px + env(safe-area-inset-top))
+    14px
+    calc(12px + env(safe-area-inset-bottom))
+    14px;
+
+  background: linear-gradient(180deg, rgba(10,12,18,.92), rgba(10,12,18,.98));
+  background-color: var(--bg);
 }
 
 /* TOP BAR */
