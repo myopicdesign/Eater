@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Eater – Swipe Ricette</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <div class="phone">
+    <div class="screen">
+      <!-- TOP BAR -->
+      <div class="topbar">
+        <div class="pill money" title="Somma prezzi delle ricette che hai messo Like">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 1C6.477 1 2 5.477 2 11s4.477 10 10 10 10-4.477 10-10S17.523 1 12 1zm.75 15.5h-1.5v-.72c-1.69-.24-2.87-1.26-2.98-2.79h1.52c.13 1.02.93 1.6 2.2 1.6 1.18 0 1.97-.5 1.97-1.24 0-.67-.55-1.04-2.1-1.36-2.02-.42-3.25-1.17-3.25-2.78 0-1.46 1.14-2.46 2.64-2.75V5.5h1.5v.7c1.48.2 2.52 1.1 2.7 2.43h-1.53c-.17-.83-.83-1.33-1.87-1.33-1.08 0-1.78.5-1.78 1.2 0 .66.58 1 2.12 1.34 2.18.47 3.24 1.23 3.24 2.82 0 1.55-1.17 2.55-2.88 2.84v.7z"/>
+            </svg>
+          </span>
+          <span id="sumPrice">~0,00 €</span>
+        </div>
+
+        <div class="brand">Eater</div>
+
+        <div class="pill kcal" title="Somma calorie delle ricette che hai messo Like">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M13 2l-1 7h3l-4 13 1-9H9l4-11z"/>
+            </svg>
+          </span>
+          <span id="sumKcal">0 kcal</span>
+        </div>
+      </div>
+
+      <!-- CARD STACK -->
+      <div class="frameWrap">
+        <div class="frame"></div>
+
+        <!-- ACTIONS -->
+        <div class="actions">
+          <button class="fab hate" id="btnHate" aria-label="Pass / No">
+            <svg viewBox="0 0 24 24">
+              <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z"/>
+            </svg>
+          </button>
+
+          <button class="fab undo" id="btnUndo" aria-label="Indietro (Undo swipe)">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 5V2L7 7l5 5V9c3.31 0 6 2.69 6 6 0 1.11-.3 2.15-.83 3.05l1.46 1.46A7.95 7.95 0 0 0 20 15c0-4.42-3.58-8-8-8z"/>
+            </svg>
+          </button>
+
+          <button class="fab like" id="btnLike" aria-label="Like">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 21s-6.716-4.35-9.333-8.044C.83 10.1 1.34 6.9 3.4 5.1 5.46 3.3 8.5 3.5 10.4 5.3c.63.6 1.2 1.3 1.6 2 .4-.7.97-1.4 1.6-2 1.9-1.8 4.94-2 7-0.2 2.06 1.8 2.57 5 0.733 7.856C18.716 16.65 12 21 12 21z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- BOTTOM NAV -->
+      <div class="bottomNav">
+        <div class="navBtn disabled" title="Solo per bilanciamento UI">
+          <div class="icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.17 14h9.66c.75 0 1.4-.41 1.74-1.03L21 6H6.21L5.27 4H2v2h2l3.6 7.59-1.35 2.44A2 2 0 0 0 8 19h12v-2H8l1.17-2z"/>
+            </svg>
+          </div>
+          <div>Lista spesa</div>
+        </div>
+
+        <div class="navBtn" id="navLikes">
+          <div class="icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 21s-6.716-4.35-9.333-8.044C.83 10.1 1.34 6.9 3.4 5.1 5.46 3.3 8.5 3.5 10.4 5.3c.63.6 1.2 1.3 1.6 2 .4-.7.97-1.4 1.6-2 1.9-1.8 4.94-2 7-0.2 2.06 1.8 2.57 5 0.733 7.856C18.716 16.65 12 21 12 21z"/>
+            </svg>
+          </div>
+          <div>Like</div>
+        </div>
+
+        <div class="navBtn" id="navCats">
+          <div class="icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M10 4H4v6h6V4zm10 0h-6v6h6V4zM10 14H4v6h6v-6zm10 0h-6v6h6v-6z"/>
+            </svg>
+          </div>
+          <div>Categorie</div>
+        </div>
+
+        <div class="navBtn disabled" title="Solo per bilanciamento UI">
+          <div class="icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+          </div>
+          <div>Profilo</div>
+        </div>
+      </div>
+
+      <!-- MODALS -->
+      <div class="modalOverlay" id="likesModal">
+        <div class="modal">
+          <div class="modalHeader">
+            <h3>Ricette che hai messo Like</h3>
+            <button class="closeBtn" data-close="likesModal" aria-label="Chiudi">
+              <svg viewBox="0 0 24 24">
+                <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="modalBody" id="likesList"></div>
+        </div>
+      </div>
+
+      <div class="modalOverlay" id="catsModal">
+        <div class="modal">
+          <div class="modalHeader">
+            <h3>Filtra per categoria</h3>
+            <button class="closeBtn" data-close="catsModal" aria-label="Chiudi">
+              <svg viewBox="0 0 24 24">
+                <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="modalBody">
+            <div class="catGrid" id="catGrid"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
