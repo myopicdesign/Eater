@@ -4,16 +4,12 @@
     "name": "Gnocchi al pomodoro",
     "categories": ["Pranzo", "Cena"],
     "kcal": 465,
-    "price": 0.90,
+    "price": 0.9,
     "image": "assets/images/recipes/gnocchi_sugo.png",
     "details": {
       "time": "10–15 min",
       "servings": "1 porzione",
-      "ingredients": [
-        "Gnocchi 250 g",
-        "Passata 150 g",
-        "Olio EVO 10 g"
-      ],
+      "ingredients": ["Gnocchi 250 g", "Passata 150 g", "Olio EVO 10 g"],
       "steps": [
         "Porta a bollore l’acqua e sala",
         "Cuoci gli gnocchi finché salgono a galla",
@@ -31,10 +27,7 @@
     "details": {
       "time": "10–15 min",
       "servings": "1 porzione",
-      "ingredients": [
-        "Patate 300 g",
-        "Olio EVO 10 g"
-      ],
+      "ingredients": ["Patate 300 g", "Olio EVO 10 g"],
       "steps": [
         "Grattugia le patate",
         "Scalda l’olio in padella",
@@ -47,7 +40,7 @@
     "name": "Pasta zucchine e parmigiano",
     "categories": ["Pranzo", "Cena"],
     "kcal": 920,
-    "price": 1.30,
+    "price": 1.3,
     "image": "assets/images/recipes/mezze_penne_zucchine.png",
     "details": {
       "time": "10–15 min",
@@ -66,8 +59,8 @@
       ]
     }
   },
-    {
-    "id": "Uova_strapazzate_Pane_tostato",
+  {
+    "id": "uova_strapazzate_pane_tostato",
     "name": "Uova strapazzate & Pane tostato",
     "categories": ["Colazione", "Spuntini"],
     "kcal": 394,
@@ -76,21 +69,17 @@
     "details": {
       "time": "5–10 min",
       "servings": "1 porzione",
-      "ingredients": [
-        "Uova 120 g",
-        "Pane 80 g "
-      ],
+      "ingredients": ["Uova 120 g", "Pane 80 g"],
       "steps": [
         "Strapazza le uova con una forchetta",
         "Scalda la padella",
-        "Butta le uova sbattute e appena cuociono separale con un mestolo"
-        "Scalda il pane al tosta pane o microonde o frig. ad aria"
-
+        "Butta le uova sbattute e appena cuociono separale con un mestolo",
+        "Scalda il pane al tostapane o microonde o friggitrice ad aria"
       ]
     }
   },
-     {
-    "id": "Banana_Pancake",
+  {
+    "id": "banana_pancake",
     "name": "Banana Pancake",
     "categories": ["Colazione", "Spuntini"],
     "kcal": 553,
@@ -101,43 +90,31 @@
       "servings": "1 porzione",
       "ingredients": [
         "Banana 115 g",
-        "Uova 100 g (≈2 medie)"
-        "Avena 80 g"
+        "Uova 100 g (≈2 medie)",
+        "Avena 80 g",
         "(Opc.) 1–2 gocce di olio EVO per padella"
-
-          
       ],
       "steps": [
-        "Schiaccia banana in una ciotola con una forchetta.",
-        "Aggiungi le uova e mescola.",
-        "Aggiungi l’avena e amalgama fino a ottenere una pastella"
-        "Scalda una padella antiaderente con un velo di olio, versa cucchiaiate e cuoci 2–3 min per lato fino a doratura."
-        "Servi caldo (puoi aggiungere banana a fette sopra)."
-
+        "Schiaccia la banana in una ciotola con una forchetta",
+        "Aggiungi le uova e mescola",
+        "Aggiungi l’avena e amalgama fino a ottenere una pastella",
+        "Scalda una padella antiaderente con un velo di olio, versa cucchiaiate e cuoci 2–3 min per lato fino a doratura",
+        "Servi caldo (puoi aggiungere banana a fette sopra)"
       ]
     }
   },
-     {
-    "id": "Crepes_avena",
+  {
+    "id": "crepes_avena",
     "name": "Crepes di avena",
     "categories": ["Colazione", "Spuntini"],
     "kcal": 460,
-    "price": ~0,60,
+    "price": 0.6,
     "image": "assets/images/recipes/Crepes_avena.png",
     "details": {
       "time": "5–10 min",
       "servings": "1 porzione",
-      "ingredients": [
-        "Avena 90 g",
-        "Latte 200 g"
-        "Olio EVO 5 g"
-
-          
-      ],
-      "steps": [
-        " Fai una pastella fluida con latte e avena",
-        "Stendi sottile in padella",
-      ]
+      "ingredients": ["Avena 90 g", "Latte 200 g", "Olio EVO 5 g"],
+      "steps": ["Fai una pastella fluida con latte e avena", "Stendi sottile in padella"]
     }
-  },
+  }
 ]
