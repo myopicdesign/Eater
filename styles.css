@@ -3,7 +3,7 @@
   --green:#4dca93;
   --red:#fb4f68;
   --purple:#8b5cf6;
-  --shadow: 0 12px 30px rgba(0,0,0,.45);
+  /*--shadow: 0 12px 30px rgba(0,0,0,.45);*/
   --shadow2: 0 6px 18px rgba(0,0,0,.35);
 }
 
@@ -279,7 +279,7 @@ body{
   bottom: calc(10px + env(safe-area-inset-bottom)); /* iOS safe area fix */
   height:66px;
   border-radius:22px;
-  box-shadow: 0 20px 50px rgba(0,0,0,.50);
+  /*box-shadow: 0 20px 50px rgba(0,0,0,.50);*/
   backdrop-filter: blur(10px);
   display:flex;
   align-items:center;
