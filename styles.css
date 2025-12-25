@@ -469,6 +469,20 @@ body{
   .actions{bottom: calc(74px + env(safe-area-inset-bottom)); gap:18px}
   .fab{width:54px;height:54px}
 }
+.screen::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height: env(safe-area-inset-bottom);
+  background: linear-gradient(
+    to bottom,
+    rgba(15,17,22,0),
+    rgba(15,17,22,0.9)
+  );
+  pointer-events:none;
+}
 
 /* iOS standalone: uniforma il "fondo" sotto l'home indicator */
 @supports (padding: max(0px)) {
