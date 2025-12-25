@@ -469,19 +469,22 @@ body{
   .actions{bottom: calc(74px + env(safe-area-inset-bottom)); gap:18px}
   .fab{width:54px;height:54px}
 }
+
+/* Sfumatura per mascherare lo stacco sotto (iOS) - con fallback robusto */
 .screen::after{
   content:"";
   position:absolute;
   left:0;
   right:0;
   bottom:0;
-  height: env(safe-area-inset-bottom);
+  height: max(env(safe-area-inset-bottom), 18px);
   background: linear-gradient(
     to bottom,
     rgba(15,17,22,0),
     rgba(15,17,22,0.9)
   );
   pointer-events:none;
+  z-index: 0;
 }
 
 /* iOS standalone: uniforma il "fondo" sotto l'home indicator */
