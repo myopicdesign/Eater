@@ -174,7 +174,7 @@
     "categories": ["Pranzo", "Cena"],
     "kcal": 1140,
     "price": 4.8,
-    "image": "assets/images/recipes/falso ragù.png",
+    "image": "assets/images/recipes/falso ragu.png",
     "details": {
       "time": "30 min",
       "servings": "1 porzione",
@@ -202,7 +202,7 @@
     "categories": ["Pranzo", "Cena"],
     "kcal": 1190,
     "price": 3.8,
-    "image": "assets/images/recipes/ragù bianco.png",
+    "image": "assets/images/recipes/ragu bianco.png",
     "details": {
       "time": "20 min",
       "servings": "1 porzione",
@@ -251,5 +251,19 @@
       "ingredients": ["Patate 300 g", "Olio EVO 10 g"],
       "steps": ["Metti a bollire la patata in acqua", "Condisci con 10 g di olio", "Insaporisci con sale e rosmarino"]
     }
-  }
+  },
+    {
+    "id": "frittata_melanzane_zucchine",
+    "name": "Frittata melanzane e zucchine",
+    "categories": ["Pranzo", "Cena"],
+    "kcal": 350,
+    "price": 0.80,
+    "image": "assets/images/recipes/frittata verdure.png",
+    "details": {
+      "time": "30 min",
+      "servings": "1 porzione",
+      "ingredients": ["Uova 150 g", "Zucchine o melanzane 200 g", "Olio EVO 5 g"],
+      "steps": ["Fai un soffritto di cipolla e metti zucchine e melanzane tagliate a cubetti", "Poi aggiungi l'uovo sbattuto", "Aggiungi sale e spezie",]
+    }
+  },
 ]
