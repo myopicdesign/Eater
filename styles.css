@@ -67,9 +67,9 @@ body{
   align-items:center;
   gap:8px;
   padding:10px 12px;
-  border-radius:999px;
+  /*border-radius:999px;
   box-shadow: var(--shadow2);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);*/
   min-width: 110px;
   justify-content:center;
   font-weight:800;
