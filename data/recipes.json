@@ -116,5 +116,47 @@
       "ingredients": ["Avena 90 g", "Latte 200 g", "Olio EVO 5 g"],
       "steps": ["Fai una pastella fluida con latte e avena", "Stendi sottile in padella"]
     }
-  }
+  },
+    {
+    "id": "Porridge_classico_avena_latte",
+    "name": "Porridge classico avena & latte",
+    "categories": ["Colazione", "Spuntini"],
+    "kcal": 434,
+    "price": 0.58,
+    "image": "assets/images/recipes/Porridge_latte.png",
+    "details": {
+      "time": "5 min",
+      "servings": "1 porzione",
+      "ingredients": [
+        "Avena 80 g",
+        "Latte 300 g",
+      ],
+      "steps": [
+        "Mescola latte e avena in una ciotola",
+        "Metti nel microonde",
+      ]
+    }
+  },
+      {
+    "id": "porridge_avena_banana",
+    "name": "Porridge avena & banana",
+    "categories": ["Colazione", "Spuntini"],
+    "kcal": 356,
+    "price": 0.44,
+    "image": "assets/images/recipes/mezze_penne_zucchine.png",
+    "details": {
+      "time": "5 min",
+      "servings": "1 porzione",
+      "ingredients": [
+        "Avena 70 g",
+        "Banana 150 g",
+        "Acqua q.b."
+      ],
+      "steps": [
+        "Mescola acqua e avena in una ciotola",
+        "Cuoci avena in acqua",
+        "Aggiungi banana schiacciata e mescola"
+      ]
+    }
+  },
 ]
