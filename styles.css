@@ -246,11 +246,11 @@ body{
 .actions{
   position:absolute;
   left:0; right:0;
-  bottom: calc(0px + env(safe-area-inset-bottom)); /* iOS safe area fix */
+  bottom: calc(-10px + env(safe-area-inset-bottom)); /* iOS safe area fix */
   display:flex;
   justify-content:center;
   gap:22px;
-  z-index: 5;
+  z-index: 7;
   user-select:none;
 }
 
