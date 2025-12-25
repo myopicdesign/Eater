@@ -102,7 +102,7 @@ body{
 /* FRAME (CARD STACK) */
 .frameWrap{
   position:relative;
-  height: calc(100% - 54px - 86px);
+  height: calc(100% - 35px - 86px);
   padding-top: 6px;
   padding-bottom: calc(6px + env(safe-area-inset-bottom));
 }
