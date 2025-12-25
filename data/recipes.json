@@ -45,12 +45,7 @@
     "details": {
       "time": "10–15 min",
       "servings": "1 porzione",
-      "ingredients": [
-        "Pasta 200 g",
-        "Zucchine 200 g",
-        "Parmigiano 20 g",
-        "Olio EVO 10 g"
-      ],
+      "ingredients": ["Pasta 200 g", "Zucchine 200 g", "Parmigiano 20 g", "Olio EVO 10 g"],
       "steps": [
         "Taglia le zucchine a cubetti",
         "Rosola le zucchine in padella con l’olio",
@@ -117,7 +112,7 @@
       "steps": ["Fai una pastella fluida con latte e avena", "Stendi sottile in padella"]
     }
   },
-    {
+  {
     "id": "Porridge_classico_avena_latte",
     "name": "Porridge classico avena & latte",
     "categories": ["Colazione", "Spuntini"],
@@ -127,36 +122,134 @@
     "details": {
       "time": "5 min",
       "servings": "1 porzione",
-      "ingredients": [
-        "Avena 80 g",
-        "Latte 300 g",
-      ],
-      "steps": [
-        "Mescola latte e avena in una ciotola",
-        "Metti nel microonde",
-      ]
+      "ingredients": ["Avena 80 g", "Latte 300 g"],
+      "steps": ["Mescola latte e avena in una ciotola", "Metti nel microonde"]
     }
   },
-      {
+  {
     "id": "porridge_avena_banana",
     "name": "Porridge avena & banana",
     "categories": ["Colazione", "Spuntini"],
     "kcal": 356,
     "price": 0.44,
-    "image": "assets/images/recipes/mezze_penne_zucchine.png",
+    "image": "assets/images/recipes/Porridge_banana.png",
     "details": {
       "time": "5 min",
       "servings": "1 porzione",
-      "ingredients": [
-        "Avena 70 g",
-        "Banana 150 g",
-        "Acqua q.b."
-      ],
-      "steps": [
-        "Mescola acqua e avena in una ciotola",
-        "Cuoci avena in acqua",
-        "Aggiungi banana schiacciata e mescola"
-      ]
+      "ingredients": ["Avena 70 g", "Banana 150 g", "Acqua q.b."],
+      "steps": ["Mescola acqua e avena in una ciotola", "Cuoci avena in acqua", "Aggiungi banana schiacciata e mescola"]
     }
   },
+  {
+    "id": "Frittata_di_patate",
+    "name": "Frittata di patate",
+    "categories": ["Pranzo", "Cena"],
+    "kcal": 420,
+    "price": 0.7,
+    "image": "assets/images/recipes/Frittata di Patate.png",
+    "details": {
+      "time": "5 min",
+      "servings": "1 porzione",
+      "ingredients": ["Patate 250 g", "Uova 120 g", "Olio EVO 5 g", "Prezzemolo q.b."],
+      "steps": ["Cuoci patate a dadini in padella", "Poi cola delle uova sbattute con prezzemolo e sale sopra"]
+    }
+  },
+  {
+    "id": "Pollo_patate_padella",
+    "name": "Pollo e patate in padella",
+    "categories": ["Pranzo", "Cena"],
+    "kcal": 560,
+    "price": 4.5,
+    "image": "assets/images/recipes/Pollo e patate.png",
+    "details": {
+      "time": "45 min",
+      "servings": "1 porzione",
+      "ingredients": ["Pollo 200 g", "Patate 300 g", "Olio EVO 10 g"],
+      "steps": ["Cuoci patate a dadini in padella", "Poi aggiungi il petto di pollo tagliato a pezzi o intero", "Condisci con il rosmarino e sale"]
+    }
+  },
+  {
+    "id": "Fake_ragù",
+    "name": "Falso ragù",
+    "categories": ["Pranzo", "Cena"],
+    "kcal": 1140,
+    "price": 4.8,
+    "image": "assets/images/recipes/falso ragù.png",
+    "details": {
+      "time": "30 min",
+      "servings": "1 porzione",
+      "ingredients": ["Hamburger manzo 200 g", "Salsa di pomodoro 200 g", "Olio EVO 5 g", "Pasta 200 g"],
+      "steps": ["Fai un soffritto di cipolla e versa la salsa al pomodoro", "Poi aggiungi l'hamburger sbriciolato", "Aggiungi sale e rosmarino", "Condisci la pasta"]
+    }
+  },
+  {
+    "id": "Manzo_stracciato_e_sugo",
+    "name": "Manzo stracciato al sugo",
+    "categories": ["Pranzo", "Cena"],
+    "kcal": 440,
+    "price": 4.5,
+    "image": "assets/images/recipes/Manzo stracciato al sugo.png",
+    "details": {
+      "time": "20 min",
+      "servings": "1 porzione",
+      "ingredients": ["Hamburger manzo 200 g", "Salsa di pomodoro 200 g", "Olio EVO 5 g"],
+      "steps": ["Fai un soffritto di cipolla e versa la salsa al pomodoro", "Poi aggiungi l'hamburger sbriciolato", "Aggiungi sale e rosmarino"]
+    }
+  },
+  {
+    "id": "Fake_ragù_bianco",
+    "name": "Falso ragù bianco",
+    "categories": ["Pranzo", "Cena"],
+    "kcal": 1190,
+    "price": 3.8,
+    "image": "assets/images/recipes/ragù bianco.png",
+    "details": {
+      "time": "20 min",
+      "servings": "1 porzione",
+      "ingredients": ["Hamburger manzo 200 g", "Parmigiano 5 g", "Olio EVO 10 g", "Pasta 200 g"],
+      "steps": ["Fai un soffritto di cipolla", "Poi aggiungi l'hamburger sbriciolato", "Aggiungi sale e rosmarino e parmigiano", "Condisci la pasta"]
+    }
+  },
+  {
+    "id": "Milk_pro",
+    "name": "Milk pro 35g Proteine",
+    "categories": ["Pranzo", "Cena"],
+    "kcal": 190,
+    "price": 2.0,
+    "image": "assets/images/recipes/Milk pro.png",
+    "details": {
+      "time": "0 min",
+      "servings": "1 porzione",
+      "ingredients": ["Milk pro 35g Proteine 500 ml"],
+      "steps": ["Aprilo e bevi"]
+    }
+  },
+  {
+    "id": "Patate_forno",
+    "name": "Patate al forno",
+    "categories": ["Pranzo", "Cena"],
+    "kcal": 315,
+    "price": 0.5,
+    "image": "assets/images/recipes/Patate al forno.png",
+    "details": {
+      "time": "45 min",
+      "servings": "1 porzione",
+      "ingredients": ["Patate 300 g", "Olio EVO 10 g"],
+      "steps": ["Taglia le patate a cubetti", "Versa 5 g di olio in una padella", "Metti le patate in padella e cuoci con coperchio a fuoco lento", "Insaporisci con sale e rosmarino"]
+    }
+  },
+  {
+    "id": "Patate_bollite",
+    "name": "Patate bollite",
+    "categories": ["Pranzo", "Cena"],
+    "kcal": 315,
+    "price": 0.5,
+    "image": "assets/images/recipes/patate bollite.png",
+    "details": {
+      "time": "0 min",
+      "servings": "1 porzione",
+      "ingredients": ["Patate 300 g", "Olio EVO 10 g"],
+      "steps": ["Metti a bollire la patata in acqua", "Condisci con 10 g di olio", "Insaporisci con sale e rosmarino"]
+    }
+  }
 ]
