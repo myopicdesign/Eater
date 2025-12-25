@@ -187,7 +187,7 @@ body{
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
-  padding: 0 18px 18px 18px;
+  padding: 0 18px 50px 18px;
   z-index:2;
 }
 
@@ -246,7 +246,7 @@ body{
 .actions{
   position:absolute;
   left:0; right:0;
-  bottom: calc(92px + env(safe-area-inset-bottom)); /* iOS safe area fix */
+  bottom: calc(0px + env(safe-area-inset-bottom)); /* iOS safe area fix */
   display:flex;
   justify-content:center;
   gap:22px;
