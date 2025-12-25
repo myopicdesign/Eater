@@ -187,7 +187,7 @@ body{
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
-  padding: 0 18px 50px 18px;
+  padding: 0 18px 60px 18px;
   z-index:2;
 }
 
