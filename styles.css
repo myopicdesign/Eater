@@ -1,5 +1,5 @@
 :root{
-  --bg:#0b0b0f;
+  --bg:#0f1116;
   --green:#4dca93;
   --red:#fb4f68;
   --purple:#8b5cf6;
@@ -16,7 +16,9 @@ body{
   overflow:hidden;
   color:#fff;
   display:block;
-background: var(--bg);
+
+  /* mantieni il gradient (come prima) */
+  background: radial-gradient(1200px 900px at 50% -20%, #1b2340 0%, var(--bg) 55%);
   background-color: var(--bg);
 }
 
@@ -45,7 +47,7 @@ background: var(--bg);
     calc(12px + env(safe-area-inset-bottom))
     14px;
 
-  background: var(--bg);
+  background: linear-gradient(180deg, rgba(10,12,18,.92), rgba(10,12,18,.98));
   background-color: var(--bg);
 }
 
@@ -244,7 +246,7 @@ background: var(--bg);
 .actions{
   position:absolute;
   left:0; right:0;
-  bottom: calc(82px + env(safe-area-inset-bottom)); /* leggermente più giù su iOS */
+  bottom: calc(92px + env(safe-area-inset-bottom)); /* iOS safe area fix */
   display:flex;
   justify-content:center;
   gap:22px;
@@ -256,7 +258,7 @@ background: var(--bg);
   width:58px;height:58px;
   border-radius:999px;
   display:flex; align-items:center; justify-content:center;
-  background: rgba(11,11,15,.86);
+  background: rgba(20,24,36,.86);
   box-shadow: 0 14px 30px rgba(0,0,0,.45);
   backdrop-filter: blur(10px);
   cursor:pointer;
@@ -274,7 +276,7 @@ background: var(--bg);
 .bottomNav{
   position:absolute;
   left:14px; right:14px;
-  bottom: env(safe-area-inset-bottom); /* più bassa possibile */
+  bottom: calc(10px + env(safe-area-inset-bottom)); /* iOS safe area fix */
   height:66px;
   border-radius:22px;
   box-shadow: 0 20px 50px rgba(0,0,0,.50);
@@ -285,7 +287,6 @@ background: var(--bg);
   z-index: 6;
   user-select:none;
   border: none;
- background: rgba(11,11,15,.75);
 }
 
 .navBtn{
@@ -460,13 +461,11 @@ background: var(--bg);
 /* Responsive */
 @media (max-height: 720px){
   .title{font-size: 30px}
-  .actions{bottom: calc(78px + env(safe-area-inset-bottom))}
+  .actions{bottom: calc(88px + env(safe-area-inset-bottom))}
 }
 @media (max-height: 620px){
   .title{font-size: 26px}
   .bottom{height: 38%}
-  .actions{bottom: calc(74px + env(safe-area-inset-bottom)); gap:18px}
+  .actions{bottom: calc(84px + env(safe-area-inset-bottom)); gap:18px}
   .fab{width:54px;height:54px}
 }
-
-
