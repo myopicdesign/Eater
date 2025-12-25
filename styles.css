@@ -47,8 +47,8 @@ body{
     calc(12px + env(safe-area-inset-bottom))
     14px;
 
-  background: linear-gradient(180deg, rgba(10,12,18,.92), rgba(10,12,18,.98));
-  background-color: var(--bg);
+ /* background: linear-gradient(180deg, rgba(10,12,18,.92), rgba(10,12,18,.98));
+  background-color: var(--bg);*/
 }
 
 /* TOP BAR */
