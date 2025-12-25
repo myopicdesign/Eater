@@ -65,5 +65,84 @@
         "Manteca la pasta con zucchine e parmigiano"
       ]
     }
-  }
+  },
+    {
+    "id": "Uova_strapazzate_Pane_tostato",
+    "name": "Uova strapazzate & Pane tostato",
+    "categories": ["Colazione", "Spuntini"],
+    "kcal": 394,
+    "price": 0.52,
+    "image": "assets/images/recipes/pane_tostato_uova_strap.png",
+    "details": {
+      "time": "5–10 min",
+      "servings": "1 porzione",
+      "ingredients": [
+        "Uova 120 g",
+        "Pane 80 g "
+      ],
+      "steps": [
+        "Strapazza le uova con una forchetta",
+        "Scalda la padella",
+        "Butta le uova sbattute e appena cuociono separale con un mestolo"
+        "Scalda il pane al tosta pane o microonde o frig. ad aria"
+
+      ]
+    }
+  },
+     {
+    "id": "Banana_Pancake",
+    "name": "Banana Pancake",
+    "categories": ["Colazione", "Spuntini"],
+    "kcal": 553,
+    "price": 0.84,
+    "image": "assets/images/recipes/pancake_avena.png",
+    "details": {
+      "time": "5–10 min",
+      "servings": "1 porzione",
+      "ingredients": [
+        "Banana 115 g",
+        "Uova 100 g (≈2 medie)"
+        "Avena 80 g"
+        "(Opc.) 1–2 gocce di olio EVO per padella"
+
+          
+      ],
+      "steps": [
+        "Schiaccia banana in una ciotola con una forchetta.",
+        "Aggiungi le uova e mescola.",
+        "Aggiungi l’avena e amalgama fino a ottenere una pastella"
+        "Scalda una padella antiaderente con un velo di olio, versa cucchiaiate e cuoci 2–3 min per lato fino a doratura."
+        "Servi caldo (puoi aggiungere banana a fette sopra)."
+
+      ]
+    }
+  },
+     {
+    "id": "Banana_Pancake",
+    "name": "Banana Pancake",
+    "categories": ["Colazione", "Spuntini"],
+    "kcal": 394,
+    "price": 0.52,
+    "image": "assets/images/recipes/pancake_avena.png",
+    "details": {
+      "time": "5–10 min",
+      "servings": "1 porzione",
+      "ingredients": [
+        "Banana 115 g",
+        "Uova 100 g (≈2 medie)"
+        "Avena 80 g"
+        "(Opc.) 1–2 gocce di olio EVO per padella"
+
+          
+      ],
+      "steps": [
+        "Schiaccia banana in una ciotola con una forchetta.",
+        "Aggiungi le uova e mescola.",
+        "Aggiungi l’avena e amalgama fino a ottenere una pastella"
+        "Scalda una padella antiaderente con un velo di olio, versa cucchiaiate e cuoci 2–3 min per lato fino a doratura."
+        "Servi caldo (puoi aggiungere banana a fette sopra)."
+
+      ]
+    }
+  },
 ]
