@@ -130,6 +130,22 @@ body{
   touch-action:none;
   transform: translate3d(0,0,0);
 }
+.card::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:45%;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.65) 0%,
+    rgba(0,0,0,0.35) 40%,
+    rgba(0,0,0,0.0) 100%
+  );
+  pointer-events:none;
+  z-index:1;
+}
 
 /* Dark film */
 .card::before{
