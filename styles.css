@@ -1,5 +1,5 @@
 :root{
-  --bg:#0f1116;
+  --bg:#0b0b0f;
   --green:#4dca93;
   --red:#fb4f68;
   --purple:#8b5cf6;
@@ -16,9 +16,7 @@ body{
   overflow:hidden;
   color:#fff;
   display:block;
-
-  /* mantieni il gradient (come prima) */
-  background: radial-gradient(1200px 900px at 50% -20%, #1b2340 0%, var(--bg) 55%);
+background: var(--bg);
   background-color: var(--bg);
 }
 
@@ -47,7 +45,7 @@ body{
     calc(12px + env(safe-area-inset-bottom))
     14px;
 
-  background: linear-gradient(180deg, rgba(10,12,18,.92), rgba(10,12,18,.98));
+  background: var(--bg);
   background-color: var(--bg);
 }
 
@@ -470,26 +468,4 @@ body{
   .fab{width:54px;height:54px}
 }
 
-/* Sfumatura per mascherare lo stacco sotto (iOS) - con fallback robusto */
-.screen::after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height: max(env(safe-area-inset-bottom), 18px);
-  background: linear-gradient(
-    to bottom,
-    rgba(15,17,22,0),
-    rgba(15,17,22,0.9)
-  );
-  pointer-events:none;
-  z-index: 0;
-}
 
-/* iOS standalone: uniforma il "fondo" sotto l'home indicator */
-@supports (padding: max(0px)) {
-  body, .phone, .screen {
-    background-color: var(--bg);
-  }
-}
