@@ -246,7 +246,7 @@ body{
 .actions{
   position:absolute;
   left:0; right:0;
-  bottom: calc(92px + env(safe-area-inset-bottom)); /* iOS safe area fix */
+  bottom: calc(82px + env(safe-area-inset-bottom)); /* leggermente più giù su iOS */
   display:flex;
   justify-content:center;
   gap:22px;
@@ -276,7 +276,7 @@ body{
 .bottomNav{
   position:absolute;
   left:14px; right:14px;
-  bottom: calc(10px + env(safe-area-inset-bottom)); /* iOS safe area fix */
+  bottom: env(safe-area-inset-bottom); /* più bassa possibile */
   height:66px;
   border-radius:22px;
   box-shadow: 0 20px 50px rgba(0,0,0,.50);
@@ -461,11 +461,18 @@ body{
 /* Responsive */
 @media (max-height: 720px){
   .title{font-size: 30px}
-  .actions{bottom: calc(88px + env(safe-area-inset-bottom))}
+  .actions{bottom: calc(78px + env(safe-area-inset-bottom))}
 }
 @media (max-height: 620px){
   .title{font-size: 26px}
   .bottom{height: 38%}
-  .actions{bottom: calc(84px + env(safe-area-inset-bottom)); gap:18px}
+  .actions{bottom: calc(74px + env(safe-area-inset-bottom)); gap:18px}
   .fab{width:54px;height:54px}
+}
+
+/* iOS standalone: uniforma il "fondo" sotto l'home indicator */
+@supports (padding: max(0px)) {
+  body, .phone, .screen {
+    background-color: var(--bg);
+  }
 }
