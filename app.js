@@ -179,125 +179,94 @@ function getDisplayCategory(recipe){
 }
 
 /*****************************************************************
- * SHOPPING LIST (somma ingredienti + checkbox)
+ * SHOPPING LIST (NO SOMMA: deduplica ingredienti + checkbox)
  *****************************************************************/
 function normalizeSpaces(s){
   return String(s || "").replace(/\s+/g, " ").trim();
 }
 
-function normalizeKeyName(name){
-  return normalizeSpaces(name)
+// Prova a trasformare "Olio EVO 10 g" -> "Olio EVO"
+// e a rendere confrontabili i duplicati ("olio", "olio evo", ecc.)
+function ingredientLabel(raw){
+  let s = normalizeSpaces(raw);
+
+  // togli parentesi tipo "(Opc.) ..."
+  s = s.replace(/\([^)]*\)/g, " ").trim();
+
+  // normalizza q.b.
+  s = s.replace(/\bq\.?\s*b\.?\b/gi, "").trim();
+
+  // rimuovi quantità/unità in coda (euristica semplice)
+  // es: "200 g", "10g", "500 ml", "2 medie", "1 peperone", "CAD."
+  s = s.replace(/\b\d+(?:[.,]\d+)?\s*(?:g|gr|kg|ml|l|cl|mg|pz|pz\.|cad\.|cucchiai?|cucchiaini?)\b/gi, "").trim();
+  s = s.replace(/\b≈\s*\d+\b/gi, "").trim();
+
+  // se rimangono numeri sparsi, toglili
+  s = s.replace(/\d+/g, " ").trim();
+
+  // pulizia finale
+  s = normalizeSpaces(s);
+  return s;
+}
+
+function ingredientKeyFromLabel(label){
+  // chiave canonica per deduplica
+  // - lowercase
+  // - togli caratteri strani
+  // - spazi normalizzati
+  return normalizeSpaces(label)
     .toLowerCase()
-    .replace(/[’']/g, "'")
-    .replace(/[.,;:()]/g, "")
+    .replace(/[^a-zàèéìòù0-9\s]/gi, " ")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
-// Prova a estrarre: "Nome ... 250 g" / "Nome 0.5 kg" / "Nome 110g" ecc.
-// Se non riesce => non sommabile.
-function parseIngredientLine(line){
-  const raw = normalizeSpaces(line);
-  if(!raw) return null;
-
-  // se contiene "q.b." o "qb" o "quanto basta" => non sommabile
-  if(/\bq\.?b\.?\b/i.test(raw) || /quanto\s+basta/i.test(raw)){
-    return { raw, summable:false, name: raw, qty:null, unit:null };
-  }
-
-  // match numero + unità (unità common)
-  // - supporta 1,25 / 1.25
-  // - supporta "110g" senza spazio
-  const m = raw.match(/^(.*?)(\d+(?:[.,]\d+)?)(?:\s*)(kg|g|gr|mg|l|lt|ml|cl|pcs|pezzi|pz|cad\.?|cucchiai|cucchiaio|cucchiaini|cucchiaino)\b\.?\s*$/i);
-
-  if(!m){
-    // fallback: prova a trovare numero+unità in mezzo (es. "Milk Pro 500 ml")
-    const m2 = raw.match(/^(.*?)(\d+(?:[.,]\d+)?)(?:\s*)(kg|g|gr|mg|l|lt|ml|cl)\b\.?\s*(.*)$/i);
-    if(!m2){
-      return { raw, summable:false, name: raw, qty:null, unit:null };
-    }
-    const before = normalizeSpaces(m2[1]);
-    const qty = Number(String(m2[2]).replace(",", "."));
-    const unit = normalizeSpaces(m2[3]).toLowerCase();
-    const after = normalizeSpaces(m2[4]);
-    const name = normalizeSpaces([before, after].filter(Boolean).join(" "));
-    if(!name || !Number.isFinite(qty)) return { raw, summable:false, name: raw, qty:null, unit:null };
-    return { raw, summable:true, name, qty, unit };
-  }
-
-  const name = normalizeSpaces(m[1]);
-  const qty = Number(String(m[2]).replace(",", "."));
-  const unit = normalizeSpaces(m[3]).toLowerCase();
-
-  if(!name || !Number.isFinite(qty) || !unit){
-    return { raw, summable:false, name: raw, qty:null, unit:null };
-  }
-
-  return { raw, summable:true, name, qty, unit };
-}
-
 function buildShoppingItemsFromLikes(){
-  // ritorna array di item:
-  // { id, label, sub?, qty?, unit?, raw? }
-  const summable = new Map(); // key -> {name, unit, qty}
-  const nonSummable = new Map(); // raw -> count
+  // Deduplica: key -> { id, main, subs:Set }
+  const map = new Map();
 
   for(const r of likedRecipes.values()){
     const ingredients = Array.isArray(r.details?.ingredients) ? r.details.ingredients : [];
     for(const line of ingredients){
-      const parsed = parseIngredientLine(line);
-      if(!parsed) continue;
+      const raw = normalizeSpaces(line);
+      if(!raw) continue;
 
-      if(parsed.summable){
-        const key = normalizeKeyName(parsed.name) + "|" + parsed.unit;
-        const prev = summable.get(key);
-        if(prev){
-          prev.qty += parsed.qty;
-        }else{
-          summable.set(key, { name: parsed.name, unit: parsed.unit, qty: parsed.qty });
-        }
-      }else{
-        const k = parsed.raw;
-        nonSummable.set(k, (nonSummable.get(k) || 0) + 1);
+      const label = ingredientLabel(raw);
+      if(!label) continue;
+
+      const key = ingredientKeyFromLabel(label);
+      if(!key) continue;
+
+      if(!map.has(key)){
+        map.set(key, {
+          id: `ing:${key}`,     // id stabile per checkbox
+          main: label,          // testo mostrato
+          subs: new Set()       // ricette in cui compare
+        });
       }
+      map.get(key).subs.add(r.name.replace(/\n/g, " "));
     }
   }
 
-  const items = [];
-
-  // summable -> items
-  for(const [key, v] of summable.entries()){
-    // id stabile per checkbox: "sum|name|unit"
-    const id = "sum|" + key;
-    items.push({
-      id,
-      main: `${v.name} ${formatQty(v.qty)} ${v.unit}`.trim(),
-      sub: "Somma ingredienti"
-    });
-  }
-
-  // non-summable -> items
-  for(const [raw, count] of nonSummable.entries()){
-    const id = "raw|" + normalizeKeyName(raw);
-    const main = count > 1 ? `${raw} ×${count}` : raw;
-    items.push({
-      id,
-      main: main,
-      sub: "Voce non sommabile"
-    });
-  }
-
-  // sort: prima summabili per nome, poi raw
-  items.sort((a,b)=> a.main.localeCompare(b.main, "it", { sensitivity:"base" }));
-
-  return items;
+  // output ordinato alfabeticamente
+  return Array.from(map.values())
+    .map(x => ({
+      id: x.id,
+      main: x.main,
+      sub: Array.from(x.subs).join(" • ")
+    }))
+    .sort((a,b) => a.main.localeCompare(b.main, "it", { sensitivity: "base" }));
 }
 
-function formatQty(n){
-  // se è intero, niente decimali
-  const isInt = Math.abs(n - Math.round(n)) < 1e-9;
-  if(isInt) return String(Math.round(n));
-  // altrimenti 1 cifra (ma pulita)
-  return (Math.round(n * 10) / 10).toString().replace(".", ",");
+function pruneShopChecked(validIds){
+  let changed = false;
+  for(const k of Object.keys(shopChecked)){
+    if(!validIds.has(k)){
+      delete shopChecked[k];
+      changed = true;
+    }
+  }
+  if(changed) saveShopChecked();
 }
 
 function renderShopList(){
@@ -309,6 +278,7 @@ function renderShopList(){
         Metti Like a qualche ricetta per generare la lista spesa 🛒
       </div>
     `;
+    pruneShopChecked(new Set());
     return;
   }
 
@@ -318,8 +288,12 @@ function renderShopList(){
         Nessun ingrediente trovato nelle ricette liked.
       </div>
     `;
+    pruneShopChecked(new Set());
     return;
   }
+
+  const validIds = new Set(items.map(x => x.id));
+  pruneShopChecked(validIds);
 
   shopList.innerHTML = "";
 
