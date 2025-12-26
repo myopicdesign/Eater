@@ -487,3 +487,47 @@ body{
   .actions{bottom: calc(84px + env(safe-area-inset-bottom)); gap:18px}
   .fab{width:54px;height:54px}
 }
+
+/* SHOP LIST (aggiunta minimale, stile coerente col modal) */
+.shopItem{
+  display:flex;
+  gap:12px;
+  padding:10px;
+  border-radius:16px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  margin-bottom:10px;
+  align-items:center;
+}
+.shopCheck{
+  width:22px;
+  height:22px;
+  border-radius:6px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  cursor:pointer;
+  accent-color: var(--green);
+}
+.shopText{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  min-width:0;
+  flex:1 1 auto;
+}
+.shopMain{
+  font-weight:900;
+  font-size:14px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.shopSub{
+  color: rgba(255,255,255,.70);
+  font-weight:800;
+  font-size:12px;
+}
+.shopDone .shopMain{
+  text-decoration: line-through;
+  opacity:.65;
+}
