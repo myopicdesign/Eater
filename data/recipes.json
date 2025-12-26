@@ -237,7 +237,7 @@
     "name": "Milk pro 35g Proteine",
     "categories": ["Pranzo", "Cena"],
     "kcal": 190,
-    "price": 2.0,
+    "price": 2,
     "image": "assets/images/recipes/Milk pro.png",
     "details": {
       "time": "0 min",
@@ -320,7 +320,7 @@
     "name": "Melanzane al pomodoro e Parmigiano",
     "categories": ["Cena"],
     "kcal": 250,
-    "price": 1.0,
+    "price": 1,
     "image": "assets/images/recipes/Melanzane sugo parmigiano.png",
     "details": {
       "time": "35 min",
@@ -338,7 +338,7 @@
     "name": "Hamburger di manzo con patate",
     "categories": ["Cena"],
     "kcal": 695,
-    "price": 4.0,
+    "price": 4,
     "image": "assets/images/recipes/Hamburger e pollo.png",
     "details": {
       "time": "35 min",
@@ -382,6 +382,187 @@
         "Metti su ogni strato la crema",
         "Fai due strati e metti farina di cocco alla fine sopra"
       ]
+    }
+  },
+  {
+    "id": "Sfilatino_Morbido",
+    "name": "Due Sfilatini Morbidi",
+    "categories": ["Spuntino"],
+    "kcal": 550,
+    "price": 0.9,
+    "image": "assets/images/recipes/Sfilatino.png",
+    "details": {
+      "time": "0 min",
+      "servings": "1 porzione",
+      "ingredients": ["Sfilatino Morbido 110g"],
+      "steps": ["Compra e mangia"]
+    }
+  },
+  {
+    "id": "Sfilatino_Morbido_bresaola",
+    "name": "Due Sfilatini Morbidi e Bresaola",
+    "categories": ["Spuntino"],
+    "kcal": 645,
+    "price": 2.6,
+    "image": "assets/images/recipes/Sfilatini bresaola.png",
+    "details": {
+      "time": "0 min",
+      "servings": "1 porzione",
+      "ingredients": ["Sfilatino Morbido 110g CAD.", "Bresaola 50g"],
+      "steps": ["Compra e mangia"]
+    }
+  },
+  {
+    "id": "Sfilatino_Morbido_singolo",
+    "name": "Sfilatino Morbido",
+    "categories": ["Spuntino"],
+    "kcal": 285,
+    "price": 0.4,
+    "image": "assets/images/recipes/Sfilatino singolo.png",
+    "details": {
+      "time": "0 min",
+      "servings": "1 porzione",
+      "ingredients": ["Sfilatino Morbido 110g"],
+      "steps": ["Compra e mangia"]
+    }
+  },
+  {
+    "id": "Sfilatino_Morbido_singolo_bresaola",
+    "name": "Sfilatino Morbido con Bresaola",
+    "categories": ["Spuntino"],
+    "kcal": 360,
+    "price": 2.2,
+    "image": "assets/images/recipes/Sfilatino Bresaola.png",
+    "details": {
+      "time": "0 min",
+      "servings": "1 porzione",
+      "ingredients": ["Sfilatino Morbido 110g", "Bresaola 50g"],
+      "steps": ["Compra e mangia"]
+    }
+  },
+  {
+    "id": "Sfilatino_Morbido_Pollo",
+    "name": "Sfilatino Morbido con Pollo",
+    "categories": ["Spuntino"],
+    "kcal": 390,
+    "price": 3,
+    "image": "assets/images/recipes/Sfilatino e petto di pollo affetato.png",
+    "details": {
+      "time": "0 min",
+      "servings": "1 porzione",
+      "ingredients": ["Sfilatino Morbido 110g", "Petto di Pollo 100g"],
+      "steps": ["Compra e mangia"]
+    }
+  },
+  {
+    "id": "Sfilatini_Morbidi_Pollo",
+    "name": "Due Sfilatini Morbidi con Pollo",
+    "categories": ["Spuntino"],
+    "kcal": 675,
+    "price": 3.4,
+    "image": "assets/images/recipes/Sfilatini morbidi e pollo.png",
+    "details": {
+      "time": "0 min",
+      "servings": "1 porzione",
+      "ingredients": ["Sfilatino Morbido 110g CAD.", "Petto di Pollo 100g"],
+      "steps": ["Compra e mangia"]
+    }
+  },
+  {
+    "id": "Pasta_olio",
+    "name": "Pasta all olio",
+    "categories": ["Pranzo", "Cena"],
+    "kcal": 790,
+    "price": 0.39,
+    "image": "assets/images/recipes/Pasta all olio.png",
+    "details": {
+      "time": "15 min",
+      "servings": "1 porzione",
+      "ingredients": ["Pasta secca 200g", "Olio EVO 10g"],
+      "steps": ["Fai bollire acqua", "Condisci con olio"]
+    }
+  },
+  {
+    "id": "Petto_pollo",
+    "name": "Petto pollo",
+    "categories": ["Cena"],
+    "kcal": 220,
+    "price": 2.5,
+    "image": "assets/images/recipes/Petto di pollo.png",
+    "details": {
+      "time": "30 min",
+      "servings": "1 porzione",
+      "ingredients": ["Pollo 200g", "Velo d'olio"],
+      "steps": ["Cuoci petto di pollo con un velo d'olio"]
+    }
+  },
+  {
+    "id": "Petto_pollo_impanato",
+    "name": "Petto pollo impanato",
+    "categories": ["Cena"],
+    "kcal": 490,
+    "price": 3,
+    "image": "assets/images/recipes/Petto di pollo impanato.png",
+    "details": {
+      "time": "30 min",
+      "servings": "1 porzione",
+      "ingredients": ["Pollo 200g", "Olio EVO 10g"],
+      "steps": [
+        "Impana petto di pollo con pangrattato",
+        "Condisci con rosmarino e olio",
+        "Metti a cuocere in friggitrice ad aria"
+      ]
+    }
+  },
+  {
+    "id": "Peperoni_ripieni",
+    "name": "Peperoni ripieni di carne",
+    "categories": ["Cena"],
+    "kcal": 750,
+    "price": 4,
+    "image": "assets/images/recipes/Peperoni ripieni.png",
+    "details": {
+      "time": "50 min",
+      "servings": "1 porzione",
+      "ingredients": ["Hamburger Manzo 200g", "Olio EVO 10g", "1 Peperone", "Pangrattato 50g", "Parmigiano 10g", "Mezza Cipolla"],
+      "steps": [
+        "Taglia a metà e svuota peperone",
+        "Prepara un composto con hamburger sbriciolato, pan grattato, cipolla e aromi",
+        "Riempi i peperoni",
+        "Metti a cuocere in friggitrice ad aria"
+      ]
+    }
+  },
+  {
+    "id": "Pollo_impanato_patate",
+    "name": "Pollo Impanato con Patate",
+    "categories": ["Cena"],
+    "kcal": 715,
+    "price": 3.5,
+    "image": "assets/images/recipes/Petto di pollo impanato e patate.png",
+    "details": {
+      "time": "40 min",
+      "servings": "1 porzione",
+      "ingredients": ["Petto di pollo 200g", "Olio EVO 10g", "Patate 300g", "Pangrattato 50g"],
+      "steps": [
+        "Taglia il pollo e impanalo nel pangrattato e spezie",
+        "Taglia le patate a cubetti",
+        "Oliare e mettere a cuocere in friggitrice ad aria"
+      ]
+    }
+  },
+  {
+    "id": "Yogurt_Greco",
+    "name": "Yogurt Greco 0% Grassi",
+    "categories": ["Spuntino", "Colazione"],
+    "kcal": 79,
+    "price": 1,
+    "image": "assets/images/recipes/Yogurt greco.png",
+    "details": {
+      "time": "0 min",
+      "servings": "1 porzione",
+      "ingredients": ["Yogurt Greco 0% Grassi 150g"],
+      "steps": ["Compra e mangia"]
     }
   }
 ]
