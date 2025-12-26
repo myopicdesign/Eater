@@ -7,6 +7,7 @@ let recipesAll = []; // popolato da fetch
  * LOCALSTORAGE
  *****************************************************************/
 const LS_KEY = "eater_state_v1";
+const LS_SHOP_KEY = "eater_shop_checked_v1";
 
 function loadState(){
   try{
@@ -34,6 +35,25 @@ function saveState(){
   }
 }
 
+function loadShopChecked(){
+  try{
+    const raw = localStorage.getItem(LS_SHOP_KEY);
+    if(!raw) return {};
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : {};
+  }catch{
+    return {};
+  }
+}
+
+function saveShopChecked(){
+  try{
+    localStorage.setItem(LS_SHOP_KEY, JSON.stringify(shopChecked));
+  }catch{
+    // ignore
+  }
+}
+
 /*****************************************************************
  * STATE + DOM
  *****************************************************************/
@@ -50,6 +70,10 @@ const recipeModal = document.getElementById("recipeModal");
 const recipeModalTitle = document.getElementById("recipeModalTitle");
 const recipeModalBody  = document.getElementById("recipeModalBody");
 
+const shopModal = document.getElementById("shopModal");
+const shopList  = document.getElementById("shopList");
+
+const navShop  = document.getElementById("navShop");
 const navLikes = document.getElementById("navLikes");
 const navCats  = document.getElementById("navCats");
 
@@ -62,6 +86,9 @@ let activeCategory = "Tutte";
 
 // likedRecipes: Map(id -> recipe)
 const likedRecipes = new Map();
+
+// shop checked states (persistito): { [itemId]: true/false }
+let shopChecked = loadShopChecked();
 
 // swipe log (persistito): {id, action, ts}
 let swipeLog = [];
@@ -107,6 +134,10 @@ function openModal(which){
   if(which === "cats"){
     catsModal.classList.add("show");
   }
+  if(which === "shop"){
+    renderShopList();
+    shopModal.classList.add("show");
+  }
 }
 
 function closeModalById(id){
@@ -145,6 +176,186 @@ function normalizeRecipe(r){
 function getDisplayCategory(recipe){
   if(activeCategory !== "Tutte" && recipe.categories?.includes(activeCategory)) return activeCategory;
   return (recipe.categories && recipe.categories[0]) ? recipe.categories[0] : "—";
+}
+
+/*****************************************************************
+ * SHOPPING LIST (somma ingredienti + checkbox)
+ *****************************************************************/
+function normalizeSpaces(s){
+  return String(s || "").replace(/\s+/g, " ").trim();
+}
+
+function normalizeKeyName(name){
+  return normalizeSpaces(name)
+    .toLowerCase()
+    .replace(/[’']/g, "'")
+    .replace(/[.,;:()]/g, "")
+    .trim();
+}
+
+// Prova a estrarre: "Nome ... 250 g" / "Nome 0.5 kg" / "Nome 110g" ecc.
+// Se non riesce => non sommabile.
+function parseIngredientLine(line){
+  const raw = normalizeSpaces(line);
+  if(!raw) return null;
+
+  // se contiene "q.b." o "qb" o "quanto basta" => non sommabile
+  if(/\bq\.?b\.?\b/i.test(raw) || /quanto\s+basta/i.test(raw)){
+    return { raw, summable:false, name: raw, qty:null, unit:null };
+  }
+
+  // match numero + unità (unità common)
+  // - supporta 1,25 / 1.25
+  // - supporta "110g" senza spazio
+  const m = raw.match(/^(.*?)(\d+(?:[.,]\d+)?)(?:\s*)(kg|g|gr|mg|l|lt|ml|cl|pcs|pezzi|pz|cad\.?|cucchiai|cucchiaio|cucchiaini|cucchiaino)\b\.?\s*$/i);
+
+  if(!m){
+    // fallback: prova a trovare numero+unità in mezzo (es. "Milk Pro 500 ml")
+    const m2 = raw.match(/^(.*?)(\d+(?:[.,]\d+)?)(?:\s*)(kg|g|gr|mg|l|lt|ml|cl)\b\.?\s*(.*)$/i);
+    if(!m2){
+      return { raw, summable:false, name: raw, qty:null, unit:null };
+    }
+    const before = normalizeSpaces(m2[1]);
+    const qty = Number(String(m2[2]).replace(",", "."));
+    const unit = normalizeSpaces(m2[3]).toLowerCase();
+    const after = normalizeSpaces(m2[4]);
+    const name = normalizeSpaces([before, after].filter(Boolean).join(" "));
+    if(!name || !Number.isFinite(qty)) return { raw, summable:false, name: raw, qty:null, unit:null };
+    return { raw, summable:true, name, qty, unit };
+  }
+
+  const name = normalizeSpaces(m[1]);
+  const qty = Number(String(m[2]).replace(",", "."));
+  const unit = normalizeSpaces(m[3]).toLowerCase();
+
+  if(!name || !Number.isFinite(qty) || !unit){
+    return { raw, summable:false, name: raw, qty:null, unit:null };
+  }
+
+  return { raw, summable:true, name, qty, unit };
+}
+
+function buildShoppingItemsFromLikes(){
+  // ritorna array di item:
+  // { id, label, sub?, qty?, unit?, raw? }
+  const summable = new Map(); // key -> {name, unit, qty}
+  const nonSummable = new Map(); // raw -> count
+
+  for(const r of likedRecipes.values()){
+    const ingredients = Array.isArray(r.details?.ingredients) ? r.details.ingredients : [];
+    for(const line of ingredients){
+      const parsed = parseIngredientLine(line);
+      if(!parsed) continue;
+
+      if(parsed.summable){
+        const key = normalizeKeyName(parsed.name) + "|" + parsed.unit;
+        const prev = summable.get(key);
+        if(prev){
+          prev.qty += parsed.qty;
+        }else{
+          summable.set(key, { name: parsed.name, unit: parsed.unit, qty: parsed.qty });
+        }
+      }else{
+        const k = parsed.raw;
+        nonSummable.set(k, (nonSummable.get(k) || 0) + 1);
+      }
+    }
+  }
+
+  const items = [];
+
+  // summable -> items
+  for(const [key, v] of summable.entries()){
+    // id stabile per checkbox: "sum|name|unit"
+    const id = "sum|" + key;
+    items.push({
+      id,
+      main: `${v.name} ${formatQty(v.qty)} ${v.unit}`.trim(),
+      sub: "Somma ingredienti"
+    });
+  }
+
+  // non-summable -> items
+  for(const [raw, count] of nonSummable.entries()){
+    const id = "raw|" + normalizeKeyName(raw);
+    const main = count > 1 ? `${raw} ×${count}` : raw;
+    items.push({
+      id,
+      main: main,
+      sub: "Voce non sommabile"
+    });
+  }
+
+  // sort: prima summabili per nome, poi raw
+  items.sort((a,b)=> a.main.localeCompare(b.main, "it", { sensitivity:"base" }));
+
+  return items;
+}
+
+function formatQty(n){
+  // se è intero, niente decimali
+  const isInt = Math.abs(n - Math.round(n)) < 1e-9;
+  if(isInt) return String(Math.round(n));
+  // altrimenti 1 cifra (ma pulita)
+  return (Math.round(n * 10) / 10).toString().replace(".", ",");
+}
+
+function renderShopList(){
+  const items = buildShoppingItemsFromLikes();
+
+  if(likedRecipes.size === 0){
+    shopList.innerHTML = `
+      <div style="color:rgba(255,255,255,.75);font-weight:800;line-height:1.4;">
+        Metti Like a qualche ricetta per generare la lista spesa 🛒
+      </div>
+    `;
+    return;
+  }
+
+  if(items.length === 0){
+    shopList.innerHTML = `
+      <div style="color:rgba(255,255,255,.75);font-weight:800;line-height:1.4;">
+        Nessun ingrediente trovato nelle ricette liked.
+      </div>
+    `;
+    return;
+  }
+
+  shopList.innerHTML = "";
+
+  for(const item of items){
+    const row = document.createElement("div");
+    row.className = "shopItem";
+    row.dataset.id = item.id;
+
+    const checked = !!shopChecked[item.id];
+
+    row.innerHTML = `
+      <input class="shopCheck" type="checkbox" ${checked ? "checked" : ""} aria-label="Spunta ingrediente" />
+      <div class="shopText ${checked ? "shopDone" : ""}">
+        <div class="shopMain">${escapeHtml(item.main)}</div>
+        <div class="shopSub">${escapeHtml(item.sub || "")}</div>
+      </div>
+    `;
+
+    const cb = row.querySelector(".shopCheck");
+    const textWrap = row.querySelector(".shopText");
+
+    cb.addEventListener("change", ()=>{
+      shopChecked[item.id] = cb.checked;
+      saveShopChecked();
+      if(cb.checked) textWrap.classList.add("shopDone");
+      else textWrap.classList.remove("shopDone");
+    });
+
+    shopList.appendChild(row);
+  }
+}
+
+function refreshShopIfOpen(){
+  if(shopModal && shopModal.classList.contains("show")){
+    renderShopList();
+  }
 }
 
 /*****************************************************************
@@ -210,6 +421,7 @@ function removeLikeById(id){
   sumLiked();
   saveState();
   renderLikesList();
+  refreshShopIfOpen(); // <--- aggiorna lista spesa
 }
 
 function renderLikesList(){
@@ -429,6 +641,7 @@ function complete(action) {
     likedRecipes.set(recipe.id, recipe);
     sumLiked();
     saveState();
+    refreshShopIfOpen(); // <--- aggiorna lista spesa
   }
 
   logSwipe(recipe.id, action);
@@ -568,13 +781,14 @@ btnHate.addEventListener("click", ()=>{
 });
 btnUndo.addEventListener("click", undo);
 
+navShop.addEventListener("click", ()=> openModal("shop"));
 navLikes.addEventListener("click", ()=> openModal("likes"));
 navCats.addEventListener("click", ()=> openModal("cats"));
 
 document.querySelectorAll("[data-close]").forEach(btn=>{
   btn.addEventListener("click", (e)=> closeModalById(e.currentTarget.dataset.close));
 });
-[likesModal, catsModal, recipeModal].forEach(overlay=>{
+[likesModal, catsModal, recipeModal, shopModal].forEach(overlay=>{
   overlay.addEventListener("click", (e)=>{
     if(e.target === overlay) overlay.classList.remove("show");
   });
