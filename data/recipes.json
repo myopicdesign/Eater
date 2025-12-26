@@ -137,7 +137,11 @@
       "time": "5 min",
       "servings": "1 porzione",
       "ingredients": ["Avena 70 g", "Banana 150 g", "Acqua q.b."],
-      "steps": ["Mescola acqua e avena in una ciotola", "Cuoci avena in acqua", "Aggiungi banana schiacciata e mescola"]
+      "steps": [
+        "Mescola acqua e avena in una ciotola",
+        "Cuoci avena in acqua",
+        "Aggiungi banana schiacciata e mescola"
+      ]
     }
   },
   {
@@ -165,7 +169,11 @@
       "time": "45 min",
       "servings": "1 porzione",
       "ingredients": ["Pollo 200 g", "Patate 300 g", "Olio EVO 10 g"],
-      "steps": ["Cuoci patate a dadini in padella", "Poi aggiungi il petto di pollo tagliato a pezzi o intero", "Condisci con il rosmarino e sale"]
+      "steps": [
+        "Cuoci patate a dadini in padella",
+        "Poi aggiungi il petto di pollo tagliato a pezzi o intero",
+        "Condisci con il rosmarino e sale"
+      ]
     }
   },
   {
@@ -179,7 +187,12 @@
       "time": "30 min",
       "servings": "1 porzione",
       "ingredients": ["Hamburger manzo 200 g", "Salsa di pomodoro 200 g", "Olio EVO 5 g", "Pasta 200 g"],
-      "steps": ["Fai un soffritto di cipolla e versa la salsa al pomodoro", "Poi aggiungi l'hamburger sbriciolato", "Aggiungi sale e rosmarino", "Condisci la pasta"]
+      "steps": [
+        "Fai un soffritto di cipolla e versa la salsa al pomodoro",
+        "Poi aggiungi l'hamburger sbriciolato",
+        "Aggiungi sale e rosmarino",
+        "Condisci la pasta"
+      ]
     }
   },
   {
@@ -193,7 +206,11 @@
       "time": "20 min",
       "servings": "1 porzione",
       "ingredients": ["Hamburger manzo 200 g", "Salsa di pomodoro 200 g", "Olio EVO 5 g"],
-      "steps": ["Fai un soffritto di cipolla e versa la salsa al pomodoro", "Poi aggiungi l'hamburger sbriciolato", "Aggiungi sale e rosmarino"]
+      "steps": [
+        "Fai un soffritto di cipolla e versa la salsa al pomodoro",
+        "Poi aggiungi l'hamburger sbriciolato",
+        "Aggiungi sale e rosmarino"
+      ]
     }
   },
   {
@@ -207,7 +224,12 @@
       "time": "20 min",
       "servings": "1 porzione",
       "ingredients": ["Hamburger manzo 200 g", "Parmigiano 5 g", "Olio EVO 10 g", "Pasta 200 g"],
-      "steps": ["Fai un soffritto di cipolla", "Poi aggiungi l'hamburger sbriciolato", "Aggiungi sale e rosmarino e parmigiano", "Condisci la pasta"]
+      "steps": [
+        "Fai un soffritto di cipolla",
+        "Poi aggiungi l'hamburger sbriciolato",
+        "Aggiungi sale e rosmarino e parmigiano",
+        "Condisci la pasta"
+      ]
     }
   },
   {
@@ -227,7 +249,7 @@
   {
     "id": "Patate_forno",
     "name": "Patate al forno",
-    "categories": ["Pranzo", "Cena"],
+    "categories": ["Cena"],
     "kcal": 315,
     "price": 0.5,
     "image": "assets/images/recipes/Patate al forno.png",
@@ -235,35 +257,131 @@
       "time": "45 min",
       "servings": "1 porzione",
       "ingredients": ["Patate 300 g", "Olio EVO 10 g"],
-      "steps": ["Taglia le patate a cubetti", "Versa 5 g di olio in una padella", "Metti le patate in padella e cuoci con coperchio a fuoco lento", "Insaporisci con sale e rosmarino"]
+      "steps": [
+        "Taglia le patate a cubetti",
+        "Versa 5 g di olio in una padella",
+        "Metti le patate in padella e cuoci con coperchio a fuoco lento",
+        "Insaporisci con sale e rosmarino"
+      ]
     }
   },
   {
     "id": "Patate_bollite",
     "name": "Patate bollite",
-    "categories": ["Pranzo", "Cena"],
+    "categories": ["Cena"],
     "kcal": 315,
     "price": 0.5,
     "image": "assets/images/recipes/patate bollite.png",
     "details": {
-      "time": "0 min",
+      "time": "30 min",
       "servings": "1 porzione",
       "ingredients": ["Patate 300 g", "Olio EVO 10 g"],
       "steps": ["Metti a bollire la patata in acqua", "Condisci con 10 g di olio", "Insaporisci con sale e rosmarino"]
     }
   },
-    {
+  {
     "id": "frittata_melanzane_zucchine",
     "name": "Frittata melanzane e zucchine",
-    "categories": ["Pranzo", "Cena"],
+    "categories": ["Cena"],
     "kcal": 350,
-    "price": 0.80,
+    "price": 0.8,
     "image": "assets/images/recipes/frittata verdure.png",
     "details": {
       "time": "30 min",
       "servings": "1 porzione",
       "ingredients": ["Uova 150 g", "Zucchine o melanzane 200 g", "Olio EVO 5 g"],
-      "steps": ["Fai un soffritto di cipolla e metti zucchine e melanzane tagliate a cubetti", "Poi aggiungi l'uovo sbattuto", "Aggiungi sale e spezie",]
+      "steps": [
+        "Fai un soffritto di cipolla e metti zucchine e melanzane tagliate a cubetti",
+        "Poi aggiungi l'uovo sbattuto",
+        "Aggiungi sale e spezie"
+      ]
+    }
+  },
+  {
+    "id": "Petto_di_pollo_con_zucchine",
+    "name": "Petto di pollo con zucchine",
+    "categories": ["Cena"],
+    "kcal": 340,
+    "price": 4.5,
+    "image": "assets/images/recipes/Pollo e zucchine.png",
+    "details": {
+      "time": "35 min",
+      "servings": "1 porzione",
+      "ingredients": ["Petto di pollo 200 g", "Olio EVO 10 g"],
+      "steps": [
+        "Cuoci le zucchine tagliate a rondelle o quadratini con cipolla e olio",
+        "Metti il petto di pollo tagliato a cubetti",
+        "Insaporisci con sale"
+      ]
+    }
+  },
+  {
+    "id": "melanzane_al_pomodoro_e_parmigiano",
+    "name": "Melanzane al pomodoro e Parmigiano",
+    "categories": ["Cena"],
+    "kcal": 250,
+    "price": 1.0,
+    "image": "assets/images/recipes/Melanzane sugo parmigiano.png",
+    "details": {
+      "time": "35 min",
+      "servings": "1 porzione",
+      "ingredients": ["Melanzane 300 g", "Passata di pomodoro 150–200 g", "Olio EVO 10 g", "Parmigiano 10 g"],
+      "steps": [
+        "Cuoci le melanzane tagliate a cubetti in padella con olio",
+        "Aggiungi la passata e cuoci finché si restringe",
+        "Aggiungi parmigiano e sale"
+      ]
+    }
+  },
+  {
+    "id": "hamburger_di_manzo_con_patate",
+    "name": "Hamburger di manzo con patate",
+    "categories": ["Cena"],
+    "kcal": 695,
+    "price": 4.0,
+    "image": "assets/images/recipes/Hamburger e pollo.png",
+    "details": {
+      "time": "35 min",
+      "servings": "1 porzione",
+      "ingredients": ["Patate 300 g", "Hamburger 200 g", "Olio EVO 10 g"],
+      "steps": [
+        "Cuoci le patate tagliate a cubetti con olio e sale",
+        "Aggiungi l'hamburger a metà cottura",
+        "Insaporisci con sale"
+      ]
+    }
+  },
+  {
+    "id": "frullato_avena_proteine_banana",
+    "name": "Frullato Proteico Banana e Avena",
+    "categories": ["Colazione"],
+    "kcal": 400,
+    "price": 1.25,
+    "image": "assets/images/recipes/Frullato Proteico con Avena.png",
+    "details": {
+      "time": "5 min",
+      "servings": "1 porzione",
+      "ingredients": ["Banana 120 g", "Avena 50 g", "Milk Pro (o latte) 250–350 ml"],
+      "steps": ["Metti tutto nel frullatore", "Frulla fino a consistenza liscia", "Servi freddo"]
+    }
+  },
+  {
+    "id": "cheese_cake_cocco",
+    "name": "Cheese Cake al cocco",
+    "categories": ["Colazione"],
+    "kcal": 610,
+    "price": 1.8,
+    "image": "assets/images/recipes/Cheese Cake Proteico al cocco.png",
+    "details": {
+      "time": "15 min",
+      "servings": "1 porzione",
+      "ingredients": ["Frollini 5 cereali senza zucchero 40 g", "Proteine in polvere 25 g", "Yogurt Greco 0% grassi 150 g", "Farina di cocco 30 g"],
+      "steps": [
+        "Mescola yogurt greco e un misurino di proteine in polvere",
+        "Disponi 5 biscotti per strato",
+        "Metti su ogni strato la crema",
+        "Fai due strati e metti farina di cocco alla fine sopra"
+      ]
     }
   }
 ]
